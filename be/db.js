@@ -36,7 +36,14 @@ var categoryScheme = new Schema({
 
 var Category = mongoose.model("Category", categoryScheme);
 
+var tagSchema = new Schema({
+  title: String
+});
+
+var Tag = mongoose.model("Tag", tagSchema);
+
 module.exports = {
   Article,
-  Category
+  Category,
+  Tag
 };
