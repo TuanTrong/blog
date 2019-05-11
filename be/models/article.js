@@ -19,31 +19,15 @@ var articleSchema = new Schema({
   image: String,
   shortContent: String,
   detailContent: String,
-  tagIds: [],
+  tags: [],
   publishStatus: String,
   visibleStatus: String,
   viewCount: Number,
 
-  categoryId: Number
+  categoryId: String,
+  createDate: Date
 });
 
 var Article = mongoose.model("Article", articleSchema);
 
-var categoryScheme = new Schema({
-  title: String,
-  parentId: Number
-});
-
-var Category = mongoose.model("Category", categoryScheme);
-
-var tagSchema = new Schema({
-  title: String
-});
-
-var Tag = mongoose.model("Tag", tagSchema);
-
-module.exports = {
-  Article,
-  Category,
-  Tag
-};
+module.exports = Article;

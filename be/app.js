@@ -7,6 +7,7 @@ var mongoose = require("mongoose");
 
 var articleRouter = require("./routes/article");
 var categoryRouter = require("./routes/category");
+var seedDb = require("./controllers/seedDb");
 
 var app = express();
 
@@ -26,7 +27,7 @@ mongoose
     { useNewUrlParser: true }
   )
   .then(_ => {
-    console.log("Connected to MongoDB on cloud.");
+    seedDb(app);
   })
   .catch(err => {
     console.error(`Connection error: ${err}`);
