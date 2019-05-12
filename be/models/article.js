@@ -20,6 +20,7 @@ var articleSchema = new Schema({
   shortContent: String,
   detailContent: String,
   tags: [],
+  author: String,
   publishStatus: String,
   visibleStatus: String,
   viewCount: Number,

@@ -1,13 +1,15 @@
 var express = require("express");
 var path = require("path");
+var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
 var mongoose = require("mongoose");
 
-var articleRouter = require("./routes/article");
-var categoryRouter = require("./routes/category");
+// var articleRouter = require("./routes/article");
+// var categoryRouter = require("./routes/category");
 var seedDb = require("./controllers/seedDb");
+var articleController = require("./controllers/article");
 
 var app = express();
 
@@ -16,10 +18,14 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/article", articleRouter);
-app.use("/category", categoryRouter);
+// app.use("/article", articleRouter);
+// app.use("/category", categoryRouter);
+
+articleController(app);
 
 mongoose
   .connect(
