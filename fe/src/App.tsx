@@ -1,63 +1,33 @@
 import React from "react";
-import Axios from "axios";
-
 import * as navigation from "./components/navigation";
 import * as footer from "./components/footer";
 import * as category from "./components/category";
-import * as article from "./components/article";
-import { Article } from "./models/article";
+import { BrowserRouter, Route } from "react-router-dom";
+import { ArticleDetailComponent } from "./components/articleDetail";
+import { ArticleList } from "./components/articleList";
 
-interface IAppProps {}
-
-interface IAppState {
-  articles: [];
-}
-
-export class App extends React.Component<IAppProps, IAppState> {
-  constructor(props: IAppProps) {
-    super(props);
-    this.state = {
-      articles: []
-    };
-  }
-
-  componentDidMount() {
-    Axios.get("http://localhost:4000/article").then(res => {
-      this.setState({ articles: res.data });
-    });
-  }
-
+export class App extends React.Component {
   render() {
     return (
-      <div>
-        {navigation.create()}
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8">
-              <h1 className="my-4">New Articles</h1>
+      <BrowserRouter>
+        <div>
+          {navigation.create()}
 
-              {this.state.articles.map((a: Article, index: number) => (
-                <article.ArticleComponent key={index} data={a} />
-              ))}
-
-              <ul className="pagination justify-content-center mb-4">
-                <li className="page-item">
-                  <a className="page-link" href="/">
-                    &larr; Older
-                  </a>
-                </li>
-                <li className="page-item disabled">
-                  <a className="page-link" href="/">
-                    Newer &rarr;
-                  </a>
-                </li>
-              </ul>
+          <div className="container">
+            <div className="row">
+              {category.create()}
+              <div className="col-md-8">
+                <Route path="/" component={ArticleList} exact={true} />
+                <Route
+                  path="/article/:articleId"
+                  component={ArticleDetailComponent}
+                />
+              </div>
             </div>
-            {category.create()}
           </div>
+          {footer.create()}
         </div>
-        {footer.create()}
-      </div>
+      </BrowserRouter>
     );
   }
 }

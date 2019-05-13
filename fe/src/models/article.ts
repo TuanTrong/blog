@@ -11,42 +11,17 @@ export enum VisibleStatus {
 }
 
 export class Article {
-  title: string;
-  image: string;
-  shortContent: string;
-  detailContent: string;
-  tags: string[];
-  author: string;
-  publishStatus: PublishStatus;
-  visibleStatus: VisibleStatus;
-  viewCount: number;
+  _id: string | undefined;
+  title: string | undefined;
+  image: string | undefined;
+  shortContent: string | undefined;
+  detailContent: string | undefined;
+  tags: string[] | undefined;
+  author: string | undefined;
+  publishStatus: PublishStatus | undefined;
+  visibleStatus: VisibleStatus | undefined;
+  viewCount: number | undefined;
 
-  categoryId: string;
-  createDate: Date;
-
-  constructor(
-    title: string,
-    image: string,
-    shortContent: string,
-    detailContent: string,
-    tags: string[],
-    author: string,
-    publishStatus: PublishStatus,
-    visibleStatus: VisibleStatus,
-    viewCount: number,
-    categoryId: string
-  ) {
-    this.title = title;
-    this.image = image;
-    this.shortContent = shortContent;
-    this.detailContent = detailContent;
-    this.tags = tags;
-    this.author = author;
-    this.publishStatus = publishStatus;
-    this.visibleStatus = visibleStatus;
-    this.viewCount = viewCount;
-
-    this.categoryId = categoryId;
-    this.createDate = new Date();
-  }
+  categoryId: string | undefined;
+  createDate: Date | undefined;
 }

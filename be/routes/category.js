@@ -1,9 +1,16 @@
 var express = require("express");
-var router = express.Router();
+var categoryController = require("../controllers/category");
 
-/* GET categories. */
-router.get("/", function(req, res, next) {
-  res.send("respond with a resource");
+var router = express.Router({
+  mergeParams: true
 });
+
+router.get("/", categoryController.getAllCategory);
+
+router
+  .route("/:id")
+  .get(categoryController.findCategoryById)
+  .post(categoryController.upsertCategoryById)
+  .delete(categoryController.deleteCategoryById);
 
 module.exports = router;

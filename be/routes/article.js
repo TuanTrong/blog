@@ -1,9 +1,16 @@
 var express = require("express");
-var router = express.Router();
+var articleController = require("../controllers/article");
 
-/* GET articles. */
-router.get("/", function(req, res, next) {
-  res.send("This is data from the Express server!");
+var router = express.Router({
+  mergeParams: true
 });
+
+router.get("/", articleController.getAllArticle);
+
+router
+  .route("/:id")
+  .get(articleController.findArticleById)
+  .post(articleController.upsertArticleById)
+  .delete(articleController.deleteArticleById);
 
 module.exports = router;
