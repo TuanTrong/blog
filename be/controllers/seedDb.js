@@ -6,38 +6,49 @@ module.exports = app => {
     var categories = [
       {
         _id: "5cd67e886a2d062fe06d0144",
-        title: "Lorem occaecat dolore non id",
-        parentId: 0
-      },
-      {
-        _id: "5cd67e885b7968371129b129",
-        title: "dolor fugiat duis reprehenderit magna",
-        parentId: "5cd67e886a2d062fe06d0144"
-      },
-      {
-        _id: "5cd67e8864a9d1e22b4889d9",
-        title: "nulla excepteur duis esse quis",
-        parentId: "5cd67e885b7968371129b129"
-      },
-      {
-        _id: "5cd67e88621e1e33c84845e2",
-        title: "veniam ea tempor minim exercitation",
-        parentId: 0
-      },
-      {
-        _id: "5cd67e880467d1e3046085e9",
-        title: "pariatur ullamco mollit nisi velit",
-        parentId: 0
+        value: "Javascript",
+        nodes: [
+          {
+            _id: "5cd67e885b7968371129b129",
+            value: "Node JS"
+          },
+          {
+            _id: "5cd67e8864a9d1e22b4889d9",
+            value: "Express JS"
+          },
+          {
+            _id: "5cd9449b48bbdffe3c055b24",
+            value: "Sails JS"
+          }
+        ]
       },
       {
         _id: "5cd67ee94759da8cf4d94e66",
-        title: "sit aliquip est tempor velit",
-        parentId: "5cd67e88621e1e33c84845e2"
-      },
-      {
-        _id: "5cd67ee99b3824d5a435ba2d",
-        title: "voluptate occaecat enim magna dolore",
-        parentId: "5cd67e880467d1e3046085e9"
+        value: "Web Design",
+        nodes: [
+          {
+            _id: "5cd9449b5a45115f94995448",
+            value: "HTML"
+          },
+          {
+            _id: "5cd9449b7a4ce5f2d7027d1e",
+            value: "CSS",
+            nodes: [
+              {
+                _id: "5cd9449b55f98214515e217a",
+                value: "SASS"
+              },
+              {
+                _id: "5cd9449b7faa4ccbe01d56d4",
+                value: "LESS"
+              }
+            ]
+          },
+          {
+            _id: "5cd9449b177552ff9142d8bf",
+            value: "React JS"
+          }
+        ]
       }
     ];
 

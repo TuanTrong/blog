@@ -34,7 +34,7 @@ export class ArticleDetailComponent extends React.Component<
         <h1 className="mt-4">{this.state.article.title}</h1>
         <p className="lead">
           by
-          <a href="#"> {this.state.article.author}</a>
+          <a href="/"> {this.state.article.author}</a>
         </p>
         <hr />
         <p>Posted on {formatDate(this.state.article.createDate)}</p>

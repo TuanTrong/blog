@@ -14,7 +14,7 @@ export class ArticleComponent extends React.Component<IArticleData> {
         <img
           className="card-img-top"
           src={this.props.article.image}
-          alt="Card image cap"
+          alt="Card cap"
         />
         <div className="card-body">
           <h2 className="card-title">{this.props.article.title}</h2>
@@ -31,7 +31,7 @@ export class ArticleComponent extends React.Component<IArticleData> {
           Posted on&nbsp;
           {formatDate(this.props.article.createDate)}
           &nbsp;by&nbsp;
-          <a>{this.props.article.author}</a>
+          <a href="/">{this.props.article.author}</a>
         </div>
       </div>
     );

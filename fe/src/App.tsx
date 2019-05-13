@@ -1,10 +1,10 @@
 import React from "react";
 import * as navigation from "./components/navigation";
 import * as footer from "./components/footer";
-import * as category from "./components/category";
 import { BrowserRouter, Route } from "react-router-dom";
 import { ArticleDetailComponent } from "./components/articleDetail";
 import { ArticleList } from "./components/articleList";
+import { CategoryComponent } from "./components/category";
 
 export class App extends React.Component {
   render() {
@@ -15,7 +15,7 @@ export class App extends React.Component {
 
           <div className="container">
             <div className="row">
-              {category.create()}
+              {<CategoryComponent />}
               <div className="col-md-8">
                 <Route path="/" component={ArticleList} exact={true} />
                 <Route
