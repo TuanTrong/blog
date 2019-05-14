@@ -3,6 +3,8 @@ import Axios from "axios";
 
 import { ArticleComponent } from "./article";
 import { Article } from "../models/article";
+import { Link } from "react-router-dom";
+import { sortArticleByCreatedDate } from "../utils/articleUtils";
 
 interface IArticleListProps {}
 
@@ -30,9 +32,17 @@ export class ArticleList extends React.Component<
   render() {
     return (
       <div>
-        <h1 className="my-4">I'm a Developer & I love...</h1>
+        <h1 className="my-4">
+          I'm a Developer & I love...
+          <Link
+            to={"/new/article"}
+            className="btn btn-light float-right align-bottom"
+          >
+            &#10133; New Article
+          </Link>
+        </h1>
 
-        {this.state.articles.map((a: Article) => (
+        {sortArticleByCreatedDate(this.state.articles).map((a: Article) => (
           <ArticleComponent key={a._id} article={a} />
         ))}
 

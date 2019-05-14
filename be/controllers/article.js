@@ -1,4 +1,5 @@
 const Article = require("../models/article");
+var ObjectId = require("mongodb").ObjectID;
 
 function getAllArticle(req, res) {
   Article.find((err, articles) => {
@@ -10,16 +11,16 @@ function getAllArticle(req, res) {
 
 function findArticleById(req, res) {
   Article.findById(req.params.id, (err, article) => {
-    if (err) throw err;
+    if (err || !article) return res.status(404).send(err);
 
     res.send(article);
   });
 }
 
 function upsertArticleById(req, res) {
-  if (req.body.id) {
+  if (req.params.id) {
     Article.findByIdAndUpdate(
-      req.body.id,
+      req.params.id,
       {
         title: req.body.title,
         image: req.body.image,
@@ -44,6 +45,7 @@ function upsertArticleById(req, res) {
       shortContent: req.body.shortContent,
       detailContent: req.body.detailContent,
       tags: [],
+      author: req.body.author,
       publishStatus: req.body.publishStatus,
       visibleStatus: req.body.visibleStatus,
       viewCount: 0,
@@ -61,10 +63,8 @@ function upsertArticleById(req, res) {
 }
 
 function deleteArticleById(req, res) {
-  Article.findByIdAndRemove(req.body.id, err => {
-    if (err) throw err;
-
-    res.send("success");
+  Article.findOneAndDelete({ _id: ObjectId(req.params.id) }).then(_ => {
+    res.send("deleted");
   });
 }
 

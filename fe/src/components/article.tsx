@@ -2,6 +2,8 @@ import React from "react";
 import { Article } from "../models/article";
 import { Link } from "react-router-dom";
 import { formatDate } from "../utils/formatDate";
+import { randomBadgesClassname } from "../utils/randomString";
+import * as tags from "./tags";
 
 export interface IArticleData {
   article: Article;
@@ -19,7 +21,7 @@ export class ArticleComponent extends React.Component<IArticleData> {
         <div className="card-body">
           <h2 className="card-title">{this.props.article.title}</h2>
           <p className="card-text">{this.props.article.shortContent}</p>
-
+          {tags.create(this.props.article.tags)}
           <Link
             to={`/article/${this.props.article._id}`}
             className="btn btn-primary"
