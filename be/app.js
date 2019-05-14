@@ -5,10 +5,13 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
 var mongoose = require("mongoose");
+var dotenv = require("dotenv");
 
 var articleRouter = require("./routes/article");
 var categoryRouter = require("./routes/category");
 var seedDb = require("./controllers/seedDb");
+
+dotenv.config();
 
 var app = express();
 
@@ -25,10 +28,7 @@ app.use("/article", articleRouter);
 app.use("/category", categoryRouter);
 
 mongoose
-  .connect(
-    "mongodb+srv://admin:admin@cluster1-z55js.mongodb.net/test?retryWrites=true",
-    { useNewUrlParser: true }
-  )
+  .connect(process.env.MONGOLAB_URI, { useNewUrlParser: true })
   .then(_ => {
     seedDb(app);
   })

@@ -22,7 +22,9 @@ export class ArticleDetailComponent extends React.Component<
 
   componentDidMount() {
     Axios.get(
-      `http://localhost:4000/article/${this.props.match.params.articleId}`
+      `${process.env.REACT_APP_API_URL_ARTICLE}/${
+        this.props.match.params.articleId
+      }`
     ).then(res => {
       this.setState({ article: res.data });
     });
@@ -34,7 +36,7 @@ export class ArticleDetailComponent extends React.Component<
         <h1 className="mt-4">{this.state.article.title}</h1>
         <p className="lead">
           by
-          <a href="/"> {this.state.article.author}</a>
+          <cite> {this.state.article.author}</cite>
         </p>
         <hr />
         <p>Posted on {formatDate(this.state.article.createDate)}</p>

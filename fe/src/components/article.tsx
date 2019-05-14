@@ -31,7 +31,7 @@ export class ArticleComponent extends React.Component<IArticleData> {
           Posted on&nbsp;
           {formatDate(this.props.article.createDate)}
           &nbsp;by&nbsp;
-          <a href="/">{this.props.article.author}</a>
+          <cite>{this.props.article.author}</cite>
         </div>
       </div>
     );

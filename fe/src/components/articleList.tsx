@@ -22,7 +22,7 @@ export class ArticleList extends React.Component<
   }
 
   componentDidMount() {
-    Axios.get("http://localhost:4000/article").then(res => {
+    Axios.get(`${process.env.REACT_APP_API_URL_ARTICLE}`).then(res => {
       this.setState({ articles: res.data });
     });
   }

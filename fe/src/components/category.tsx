@@ -13,7 +13,7 @@ export class CategoryComponent extends React.Component {
   };
 
   componentDidMount() {
-    Axios.get("http://localhost:4000/category").then(res => {
+    Axios.get(`${process.env.REACT_APP_API_URL_CATEGORY}`).then(res => {
       this.setState({ categories: res.data });
     });
   }
