@@ -18,7 +18,7 @@ function findArticleById(req, res) {
 }
 
 function upsertArticleById(req, res) {
-  if (req.params.id) {
+  if (req.params.id != 0) {
     Article.findByIdAndUpdate(
       req.params.id,
       {
@@ -35,7 +35,7 @@ function upsertArticleById(req, res) {
       (err, article) => {
         if (err) throw err;
 
-        res.send("success");
+        res.send("updated");
       }
     );
   } else {
@@ -44,7 +44,7 @@ function upsertArticleById(req, res) {
       image: req.body.image,
       shortContent: req.body.shortContent,
       detailContent: req.body.detailContent,
-      tags: [],
+      tags: req.body.tags,
       author: req.body.author,
       publishStatus: req.body.publishStatus,
       visibleStatus: req.body.visibleStatus,
@@ -57,7 +57,7 @@ function upsertArticleById(req, res) {
     article.save(err => {
       if (err) throw err;
 
-      res.send("success");
+      res.send("inserted");
     });
   }
 }

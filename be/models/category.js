@@ -3,8 +3,8 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var categoryScheme = new Schema({
-  value: String,
-  nodes: [this]
+  title: String,
+  parentId: String
 });
 
 var Category = mongoose.model("Category", categoryScheme);

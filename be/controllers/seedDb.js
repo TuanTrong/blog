@@ -6,63 +6,47 @@ module.exports = app => {
     var categories = [
       {
         _id: "5cd67e886a2d062fe06d0144",
-        value: "Javascript",
-        nodes: [
-          {
-            _id: "5cd67e885b7968371129b129",
-            value: "Node JS"
-          },
-          {
-            _id: "5cd67e8864a9d1e22b4889d9",
-            value: "Express JS"
-          },
-          {
-            _id: "5cd9449b48bbdffe3c055b24",
-            value: "Sails JS"
-          }
-        ]
+        title: "Web Design",
+        parentId: 0
+      },
+      {
+        _id: "5cd67e885b7968371129b129",
+        title: "HTML",
+        parentId: "5cd67e886a2d062fe06d0144"
+      },
+      {
+        _id: "5cd67e8864a9d1e22b4889d9",
+        title: "CSS",
+        parentId: "5cd67e885b7968371129b129"
+      },
+      {
+        _id: "5cd67e88621e1e33c84845e2",
+        title: "Javascript",
+        parentId: 0
+      },
+      {
+        _id: "5cd67e880467d1e3046085e9",
+        title: "Express JS",
+        parentId: 0
       },
       {
         _id: "5cd67ee94759da8cf4d94e66",
-        value: "Web Design",
-        nodes: [
-          {
-            _id: "5cd9449b5a45115f94995448",
-            value: "HTML"
-          },
-          {
-            _id: "5cd9449b7a4ce5f2d7027d1e",
-            value: "CSS",
-            nodes: [
-              {
-                _id: "5cd9449b55f98214515e217a",
-                value: "SASS"
-              },
-              {
-                _id: "5cd9449b7faa4ccbe01d56d4",
-                value: "LESS"
-              }
-            ]
-          },
-          {
-            _id: "5cd9449b177552ff9142d8bf",
-            value: "React JS"
-          }
-        ]
+        title: "Node JS",
+        parentId: "5cd67e88621e1e33c84845e2"
+      },
+      {
+        _id: "5cd67ee99b3824d5a435ba2d",
+        title: "Sails JS",
+        parentId: "5cd67e880467d1e3046085e9"
       }
     ];
 
     var articles = [
       {
-        title: "sit ad irure proident ullamco",
+        title: "JavaScript Functions as JavaScript Variables",
         image: "https://picsum.photos/750/300?random=1",
-        shortContent: "deserunt duis et id qui",
-        detailContent:
-          "Voluptate adipisicing cillum sint proident dolore nostrud. Proident enim ea nisi non Lorem nisi irure ad exercitation culpa nisi velit officia. Adipisicing do do exercitation laboris aliquip eiusmod adipisicing nulla elit cupidatat nisi velit in.\r\nEnim aliquip Lorem do ut mollit amet amet tempor deserunt nulla veniam tempor magna ipsum. Consequat ad qui sunt ex elit occaecat irure adipisicing ad ut deserunt voluptate adipisicing cillum. Elit nulla nostrud et reprehenderit dolore anim duis Lorem. Enim est do magna ad velit.\r\n",
-        tags: [
-          "lorum ipsum dolar sitmet",
-          "apilowso clieom siamana welses aef asiso"
-        ],
+        shortContent: "Function Basics. Level Set!",
+        tags: ["javascript", "web", "front-end"],
         author: "Boyd Wyatt",
         publishStatus: "Draft",
         visibleStatus: "Hot",
@@ -71,15 +55,11 @@ module.exports = app => {
         createDate: new Date()
       },
       {
-        title: "nostrud ad elit voluptate aliquip",
+        title: "Secrets of the JavaScript Ninja—The JavaScript Ecosystem",
         image: "https://picsum.photos/750/300?random=2",
-        shortContent: "commodo amet incididunt et eu",
-        detailContent:
-          "Ea duis eiusmod irure cupidatat commodo ex magna. Adipisicing quis reprehenderit aliquip aliqua eiusmod ut cupidatat sit nulla sint officia incididunt. Cupidatat cupidatat voluptate aute reprehenderit irure. Est tempor magna deserunt pariatur sunt laborum aliqua nostrud sint magna qui.\r\nNostrud pariatur nulla tempor anim Lorem voluptate dolore excepteur consectetur. Enim consequat excepteur laboris dolor sint anim culpa sit. Veniam consequat ea veniam esse id quis anim esse proident consectetur nostrud cupidatat laboris minim. Reprehenderit eiusmod do fugiat excepteur Lorem. Ad proident sit incididunt dolore consequat minim adipisicing est ut ex laboris sit duis.\r\n",
-        tags: [
-          "lorum ipsum dolar sitmet",
-          "apilowso clieom siamana welses aef asiso"
-        ],
+        shortContent:
+          "Applications based on the ideas originating from the web are becoming ubiquitous – the technologies we once exclusively used to develop client-side web applications, executed in the browser, have...",
+        tags: ["js", "javascript", "advanced js"],
         author: "Barton Wynn",
         publishStatus: "Deleted",
         visibleStatus: "Docked",
@@ -88,15 +68,11 @@ module.exports = app => {
         createDate: new Date()
       },
       {
-        title: "dolor Lorem consequat eu laboris",
+        title: "Profiling NodeJS",
         image: "https://picsum.photos/750/300?random=3",
-        shortContent: "commodo quis aute laboris ex",
-        detailContent:
-          "Aliquip magna magna ex amet et cupidatat voluptate. Minim sint occaecat exercitation mollit ex qui sit Lorem duis. Nulla magna ex exercitation exercitation elit incididunt ipsum excepteur irure et est id.\r\nVelit aliqua laborum nisi ad voluptate nostrud commodo pariatur sunt ullamco sint consectetur in. Est do voluptate sint deserunt cupidatat dolor qui. Eiusmod voluptate cillum aliqua occaecat proident reprehenderit tempor enim ut aliquip nulla sunt mollit fugiat. Aliquip est laborum quis irure non sunt est officia consequat sunt.\r\n",
-        tags: [
-          "lorum ipsum dolar sitmet",
-          "apilowso clieom siamana welses aef asiso"
-        ],
+        shortContent:
+          "Learn how to use the Linux performance analysis tool to diagnose problems in your application for debugging or performance optimization.",
+        tags: ["node", "node js", "back-end ", "Node JS"],
         author: "Hunter Stone",
         publishStatus: "Published",
         visibleStatus: "Normal",
@@ -105,15 +81,11 @@ module.exports = app => {
         createDate: new Date()
       },
       {
-        title: "esse ad minim ea commodo",
+        title: "Modular HTML pages",
         image: "https://picsum.photos/750/300?random=4",
-        shortContent: "eu ad veniam consequat tempor",
-        detailContent:
-          "Anim esse sunt dolore duis. Proident aliquip mollit ullamco aliqua. Duis esse nulla sit ex ea.\r\nConsequat sint eiusmod aliquip eu eu ea ea reprehenderit. Lorem veniam magna in duis id est excepteur amet elit exercitation dolor et cillum sint. Eu quis minim exercitation excepteur. Amet est anim aliqua id id ea fugiat eu.\r\n",
-        tags: [
-          "lorum ipsum dolar sitmet",
-          "apilowso clieom siamana welses aef asiso"
-        ],
+        shortContent:
+          "When statically generating HTML content, you face an interesting challenge: If the page frame (the “chrome” of a page) contains information that changes frequently, you need to re-generate all pages...",
+        tags: ["html", "web design", "front-end", "UI", "clean code"],
         author: "Tammi Wolf",
         publishStatus: "Deleted",
         visibleStatus: "Hot",
@@ -122,14 +94,17 @@ module.exports = app => {
         createDate: new Date()
       },
       {
-        title: "magna laborum pariatur aliqua exercitation",
+        title: "Tufte CSS",
         image: "https://picsum.photos/750/300?random=5",
-        shortContent: "ut minim ipsum magna laborum",
-        detailContent:
-          "Occaecat enim aliquip fugiat ad quis non duis esse dolor elit voluptate quis. Aliqua Lorem aliqua nulla ut irure do proident non esse. Non incididunt elit est mollit pariatur.\r\nLaborum amet Lorem magna laborum eiusmod reprehenderit ipsum commodo consequat qui ex ut nisi elit. Voluptate aliqua non occaecat sit nisi anim reprehenderit nisi labore officia sunt. Ipsum non laboris occaecat exercitation voluptate velit adipisicing consequat nisi ipsum incididunt exercitation. Duis consequat sit amet labore aliquip officia aliqua ut dolore ex.\r\n",
+        shortContent:
+          "Tufte CSS provides tools to style web articles using the ideas demonstrated by Edward Tufte’s books and handouts. Tufte’s style is known for its simplicity, extensive use of sidenotes, tight...",
         tags: [
-          "lorum ipsum dolar sitmet",
-          "apilowso clieom siamana welses aef asiso"
+          "css",
+          "front-end",
+          "web design",
+          "siamana",
+          "welses",
+          "aef asiso"
         ],
         author: "Elise Rodriquez",
         publishStatus: "Deleted",
@@ -139,15 +114,11 @@ module.exports = app => {
         createDate: new Date()
       },
       {
-        title: "excepteur voluptate ad ad quis",
+        title: " Nesting in Less and Sass",
         image: "https://picsum.photos/750/300?random=6",
-        shortContent: "cupidatat irure ipsum reprehenderit eiusmod",
-        detailContent:
-          "Nostrud adipisicing id sit ullamco laboris aute non mollit nulla dolore in anim nulla ea. Labore elit laborum exercitation in laborum est excepteur. Proident veniam dolore nulla amet enim incididunt amet elit officia.\r\nEiusmod magna incididunt voluptate duis ad duis laborum. Proident duis veniam labore commodo cupidatat ad ad cupidatat. In commodo in nostrud nisi deserunt. Proident irure adipisicing nisi do. Reprehenderit do sit sit ut et id labore.\r\n",
-        tags: [
-          "lorum ipsum dolar sitmet",
-          "apilowso clieom siamana welses aef asiso"
-        ],
+        shortContent:
+          "This article will give you a birds-eye-view on nesting (get it?) using these two well known and commonly used CSS pre-processors.",
+        tags: ["less", "sass", "css", "font-end ", "web-design"],
         author: "Gallagher Leach",
         publishStatus: "Published",
         visibleStatus: "Docked",

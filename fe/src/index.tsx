@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import "../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 require("dotenv").config();
 

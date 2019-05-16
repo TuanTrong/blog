@@ -3,7 +3,7 @@ function randomString(strings: string[]): string {
   return strings[randomIndex];
 }
 
-export function randomBadgesClassname() {
+export function getRandomBadgesClassname() {
   return randomString([
     "badge-primary",
     "badge-secondary",
@@ -38,4 +38,10 @@ export function randomBadgesClassname() {
     "badge-light",
     "badge-dark"
   ]);
+}
+
+export function getRandomImage(): string {
+  return `https://picsum.photos/750/300?random=${Math.floor(
+    Math.random() * 1000
+  ) + 1}`;
 }

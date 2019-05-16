@@ -2,7 +2,6 @@ import React from "react";
 import { Article } from "../models/article";
 import { Link } from "react-router-dom";
 import { formatDate } from "../utils/formatDate";
-import { randomBadgesClassname } from "../utils/randomString";
 import * as tags from "./tags";
 
 export interface IArticleData {

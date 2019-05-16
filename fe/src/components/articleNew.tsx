@@ -1,67 +1,71 @@
 import React from "react";
 import Axios from "axios";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, DropdownButton, Dropdown } from "react-bootstrap";
 import { PublishStatus, VisibleStatus } from "../models/article";
 import { Link } from "react-router-dom";
+import { enumToArray } from "../utils/enumHelper";
+import { getRandomImage } from "../utils/random";
+import { EditorState, convertToRaw, RawDraftContentState } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import { Category } from "../models/category";
+import { observer } from "mobx-react";
+import { observable } from "mobx";
 
-export interface INewArticleProps {}
+@observer
+export class NewArticleForm extends React.Component {
+  @observable categories: Category[] = [];
 
-export interface INewArticleState {
-  title: string;
-  image: string;
-  shortContent: string;
-  detailContent?: string;
-  tags?: string[];
-  author: string;
-  publishStatus: PublishStatus;
-  visibleStatus: VisibleStatus;
-  categoryId?: string;
-  validated: boolean;
-}
+  @observable title: string = "";
+  @observable image: string = getRandomImage();
+  @observable shortContent: string = "";
+  @observable tags?: string[];
+  @observable author: string = "";
+  @observable publishStatus: PublishStatus = PublishStatus.Draft;
+  @observable visibleStatus: VisibleStatus = VisibleStatus.Normal;
+  @observable categoryId?: string;
+  @observable selectedCategory?: string = "";
+  @observable editorState: EditorState = EditorState.createEmpty();
+  @observable validated: boolean = false;
+  @observable saved: boolean = false;
 
-export class NewArticleForm extends React.Component<
-  INewArticleProps,
-  INewArticleState
-> {
-  constructor(props: INewArticleProps) {
-    super(props);
-
-    this.state = {
-      title: "",
-      image: `https://picsum.photos/750/300?random=${Math.floor(
-        Math.random() * 1000
-      ) + 1}`,
-      shortContent: "",
-      author: "",
-      publishStatus: PublishStatus.Draft,
-      visibleStatus: VisibleStatus.Normal,
-      validated: false
-    };
-  }
+  detailContent?: RawDraftContentState;
 
   async handleSubmit(event: any) {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
+    event.preventDefault();
+
+    if (!event.currentTarget.checkValidity()) {
       event.stopPropagation();
+
+      this.validated = true;
+    } else {
+      await Axios.post(`${process.env.REACT_APP_API_URL_ARTICLE}/0`, {
+        title: this.title,
+        image: this.image,
+        shortContent: this.shortContent,
+        detailContent: JSON.stringify(
+          convertToRaw(this.editorState.getCurrentContent())
+        ),
+        tags: String(this.tags).split(","),
+        author: this.author,
+        publishStatus: this.publishStatus,
+        visibleStatus: this.visibleStatus,
+        categoryId: this.categoryId
+      });
+
+      this.saved = true;
+      window.scrollTo(0, 0);
     }
+  }
 
-    this.setState({ validated: true });
+  async componentDidMount() {
+    let result = await Axios.get(`${process.env.REACT_APP_API_URL_CATEGORY}`);
 
-    await Axios.post(`${process.env.REACT_APP_API_URL_ARTICLE}/0`, {
-      title: this.state.title,
-      image: this.state.image,
-      shortContent: this.state.shortContent,
-      detailContent: this.state.detailContent,
-      tags: this.state.tags,
-      publishStatus: this.state.publishStatus,
-      visibleStatus: this.state.visibleStatus,
-      categoryId: this.state.categoryId
-    });
+    this.categories = result.data;
+    this.categoryId = result.data[0]._id;
+    this.selectedCategory = result.data[0].title;
   }
 
   render() {
-    const { validated } = this.state;
     return (
       <div>
         <h1 className="mt-4">
@@ -71,9 +75,26 @@ export class NewArticleForm extends React.Component<
           </Link>
         </h1>
         <hr />
+        {this.saved && (
+          <div
+            className="alert alert-success alert-dismissible fade show"
+            role="alert"
+          >
+            <strong>Article saved successfully.</strong>
+            <button
+              type="button"
+              className="close"
+              data-dismiss="alert"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        )}
+
         <Form
           noValidate
-          validated={validated}
+          validated={this.validated}
           onSubmit={(e: any) => this.handleSubmit(e)}
         >
           <Form.Group>
@@ -82,7 +103,7 @@ export class NewArticleForm extends React.Component<
               required
               type="text"
               placeholder="Title"
-              onChange={(e: any) => this.setState({ title: e.target.value })}
+              onChange={(e: any) => (this.title = e.target.value)}
             />
             <Form.Control.Feedback type="invalid">
               Please enter Title.
@@ -94,8 +115,8 @@ export class NewArticleForm extends React.Component<
               required
               type="text"
               placeholder="Image URL"
-              defaultValue={this.state.image}
-              onChange={(e: any) => this.setState({ image: e.target.value })}
+              defaultValue={this.image}
+              onChange={(e: any) => (this.image = e.target.value)}
             />
             <Form.Control.Feedback type="invalid">
               Please enter Image URL.
@@ -107,9 +128,7 @@ export class NewArticleForm extends React.Component<
               required
               type="text"
               placeholder="Short Content"
-              onChange={(e: any) =>
-                this.setState({ shortContent: e.target.value })
-              }
+              onChange={(e: any) => (this.shortContent = e.target.value)}
             />
             <Form.Control.Feedback type="invalid">
               Please enter Short Content.
@@ -117,11 +136,13 @@ export class NewArticleForm extends React.Component<
           </Form.Group>
           <Form.Group>
             <Form.Label>Detail Content</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Detail Content"
-              onChange={(e: any) =>
-                this.setState({ detailContent: e.target.value })
+            <Editor
+              editorState={this.editorState}
+              wrapperClassName="editor-wrapper"
+              editorClassName="editor-main"
+              toolbarClassName="editor-toolbar"
+              onEditorStateChange={editorState =>
+                (this.editorState = editorState)
               }
             />
           </Form.Group>
@@ -129,8 +150,8 @@ export class NewArticleForm extends React.Component<
             <Form.Label>Tags</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Tags"
-              onChange={(e: any) => this.setState({ tags: e.target.value })}
+              placeholder="Tags seperated by ,"
+              onChange={(e: any) => (this.tags = e.target.value)}
             />
           </Form.Group>
           <Form.Group>
@@ -139,7 +160,7 @@ export class NewArticleForm extends React.Component<
               required
               type="text"
               placeholder="Author"
-              onChange={(e: any) => this.setState({ author: e.target.value })}
+              onChange={(e: any) => (this.author = e.target.value)}
             />
             <Form.Control.Feedback type="invalid">
               Please enter Author.
@@ -147,47 +168,70 @@ export class NewArticleForm extends React.Component<
           </Form.Group>
           <Form.Group>
             <Form.Label>Publish Status</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="Publish Status"
-              defaultValue={this.state.publishStatus}
-              onChange={(e: any) =>
-                this.setState({ publishStatus: e.target.value })
-              }
-            />
-            <Form.Control.Feedback type="invalid">
-              Please enter Publish Status.
-            </Form.Control.Feedback>
+
+            <DropdownButton
+              id="publish-status-dropdown"
+              title={this.publishStatus}
+            >
+              {enumToArray(PublishStatus).map((status: string) => {
+                return (
+                  <Dropdown.Item
+                    key={status}
+                    eventKey={status}
+                    onSelect={(status: string) =>
+                      (this.publishStatus = status as PublishStatus)
+                    }
+                  >
+                    {status}
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownButton>
           </Form.Group>
           <Form.Group>
             <Form.Label>Visible Status</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="Visible Status"
-              defaultValue={this.state.visibleStatus}
-              onChange={(e: any) =>
-                this.setState({ visibleStatus: e.target.value })
-              }
-            />
-            <Form.Control.Feedback type="invalid">
-              Please enter Visible Status.
-            </Form.Control.Feedback>
+            <DropdownButton
+              id="visible-status-dropdown"
+              title={this.visibleStatus}
+            >
+              {enumToArray(VisibleStatus).map((status: string) => {
+                return (
+                  <Dropdown.Item
+                    key={status}
+                    eventKey={status}
+                    onSelect={(status: string) =>
+                      (this.visibleStatus = status as VisibleStatus)
+                    }
+                  >
+                    {status}
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownButton>
           </Form.Group>
           <Form.Group>
             <Form.Label>Category</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="Category"
-              onChange={(e: any) =>
-                this.setState({ categoryId: e.target.value })
-              }
-            />
-            <Form.Control.Feedback type="invalid">
-              Please enter Category.
-            </Form.Control.Feedback>
+            <DropdownButton
+              id="category-dropdown"
+              title={this.selectedCategory}
+            >
+              {this.categories
+                .filter(category => !category.nodes || !category.nodes.length)
+                .map((category: Category) => {
+                  return (
+                    <Dropdown.Item
+                      key={category._id}
+                      eventKey={category._id}
+                      onSelect={(categoryId: string) => {
+                        this.categoryId = categoryId;
+                        this.selectedCategory = category.title || "";
+                      }}
+                    >
+                      {category.title}
+                    </Dropdown.Item>
+                  );
+                })}
+            </DropdownButton>
           </Form.Group>
           <Button type="submit">Create</Button>
         </Form>

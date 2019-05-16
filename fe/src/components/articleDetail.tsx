@@ -7,68 +7,75 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { redirectToPath } from "../utils/redirectToPath";
 import * as tags from "./tags";
+import { EditorState, convertFromRaw } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import { observable } from "mobx";
+import { observer } from "mobx-react";
 
 export interface IArticleDetailProps {
   articleId: string;
 }
 
-export interface IArticleDetailState {
-  article: Article;
-  isLoadingError: boolean;
-}
-
+@observer
 export class ArticleDetailComponent extends React.Component<
-  RouteComponentProps<IArticleDetailProps>,
-  IArticleDetailState
+  RouteComponentProps<IArticleDetailProps>
 > {
-  state: IArticleDetailState = {
-    isLoadingError: false,
-    article: new Article()
-  };
+  @observable article: Article = new Article();
+  @observable isLoadingError: boolean = false;
 
   async componentDidMount() {
     try {
-      var result = await Axios.get(
+      let result = await Axios.get(
         `${process.env.REACT_APP_API_URL_ARTICLE}/${
           this.props.match.params.articleId
         }`
       );
 
-      this.setState({ article: result.data });
+      this.article = result.data;
     } catch (error) {
-      this.setState({ isLoadingError: true });
+      this.isLoadingError = true;
     }
   }
 
-  componentDidUpdate() {}
-
   render() {
-    if (this.state.isLoadingError) return <Redirect to="/" />;
+    if (this.isLoadingError) return <Redirect to="/" />;
+
+    let editorState = EditorState.createEmpty();
+
+    if (this.article.detailContent) {
+      const contentState = convertFromRaw(
+        JSON.parse(this.article.detailContent)
+      );
+      editorState = EditorState.createWithContent(contentState);
+    }
+
     return (
       <div>
         <h1 className="mt-4">
-          {this.state.article.title}
+          {this.article.title}
           <Link to={"/"} className="btn btn-light float-right align-bottom">
             &lArr; Back
           </Link>
         </h1>
         <p className="lead">
           by
-          <cite> {this.state.article.author}</cite>
+          <cite> {this.article.author}</cite>
         </p>
         <hr />
-        <p>Posted on {formatDate(this.state.article.createDate)}</p>
+        <p>Posted on {formatDate(this.article.createDate)}</p>
         <hr />
-        {tags.create(this.state.article.tags)}
+        {tags.create(this.article.tags)}
+        <img className="img-fluid rounded" src={this.article.image} alt="" />
         <hr />
-        <img
-          className="img-fluid rounded"
-          src={this.state.article.image}
-          alt=""
-        />
-        <hr />
-        <p className="lead">{this.state.article.shortContent}</p>
-        <p>{this.state.article.detailContent}</p>
+        <p className="lead">{this.article.shortContent}</p>
+        {this.article.detailContent && (
+          <Editor
+            editorClassName="editor-overflow-hidden"
+            editorState={editorState}
+            readOnly={true}
+            toolbarHidden={true}
+          />
+        )}
         <hr />
         <div className="btn-toolbar float-right">
           <Button
@@ -81,7 +88,7 @@ export class ArticleDetailComponent extends React.Component<
             onClick={(e: React.MouseEvent) => {
               if (
                 window.confirm(
-                  `Are you sure to delete article: ${this.state.article.title}?`
+                  `Are you sure to delete article: ${this.article.title}?`
                 )
               ) {
                 this.deleteArticle(e);
@@ -99,7 +106,7 @@ export class ArticleDetailComponent extends React.Component<
   editArticle(e: React.MouseEvent): void {}
 
   async deleteArticle(e: React.MouseEvent): Promise<void> {
-    var result = await Axios.delete(
+    let result = await Axios.delete(
       `${process.env.REACT_APP_API_URL_ARTICLE}/${
         this.props.match.params.articleId
       }`

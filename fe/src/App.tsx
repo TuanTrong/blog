@@ -31,6 +31,7 @@ export class App extends React.Component {
               </div>
             </div>
           </div>
+
           {footer.create()}
         </div>
       </BrowserRouter>

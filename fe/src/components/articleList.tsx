@@ -1,32 +1,21 @@
 import React from "react";
 import Axios from "axios";
-
+import { Link } from "react-router-dom";
 import { ArticleComponent } from "./article";
 import { Article } from "../models/article";
-import { Link } from "react-router-dom";
 import { sortArticleByCreatedDate } from "../utils/articleUtils";
+import { observer } from "mobx-react";
+import { observable } from "mobx";
 
-interface IArticleListProps {}
+@observer
+export class ArticleList extends React.Component {
+  @observable
+  articles: Article[] = [];
 
-interface IArticleListState {
-  articles: [];
-}
+  async componentDidMount() {
+    let result = await Axios.get(`${process.env.REACT_APP_API_URL_ARTICLE}`);
 
-export class ArticleList extends React.Component<
-  IArticleListProps,
-  IArticleListState
-> {
-  constructor(props: IArticleListProps) {
-    super(props);
-    this.state = {
-      articles: []
-    };
-  }
-
-  componentDidMount() {
-    Axios.get(`${process.env.REACT_APP_API_URL_ARTICLE}`).then(res => {
-      this.setState({ articles: res.data });
-    });
+    this.articles = result.data;
   }
 
   render() {
@@ -42,7 +31,7 @@ export class ArticleList extends React.Component<
           </Link>
         </h1>
 
-        {sortArticleByCreatedDate(this.state.articles).map((a: Article) => (
+        {sortArticleByCreatedDate(this.articles).map((a: Article) => (
           <ArticleComponent key={a._id} article={a} />
         ))}
 

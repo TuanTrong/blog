@@ -2,20 +2,19 @@ import React from "react";
 import Axios from "axios";
 import MuiTreeView from "material-ui-treeview";
 import { Category } from "../models/category";
+import { toTree } from "../utils/categoryUtils";
+import { observer } from "mobx-react";
+import { observable } from "mobx";
 
-interface ICategoriesState {
-  categories: Category[];
-}
-
+@observer
 export class CategoryComponent extends React.Component {
-  state = {
-    categories: []
-  };
+  @observable
+  categories: Category[] = [];
 
-  componentDidMount() {
-    Axios.get(`${process.env.REACT_APP_API_URL_CATEGORY}`).then(res => {
-      this.setState({ categories: res.data });
-    });
+  async componentDidMount() {
+    var result = await Axios.get(`${process.env.REACT_APP_API_URL_CATEGORY}`);
+
+    this.categories = result.data;
   }
 
   render() {
@@ -25,7 +24,7 @@ export class CategoryComponent extends React.Component {
           <h5 className="card-header">Categories</h5>
           <div className="card-body">
             <div className="row">
-              <MuiTreeView tree={this.state.categories} />
+              <MuiTreeView tree={toTree(this.categories) as any} />
             </div>
           </div>
         </div>

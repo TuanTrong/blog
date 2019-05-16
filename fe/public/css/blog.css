@@ -32,3 +32,25 @@ body {
   bottom: 0;
   left: 0;
 }
+
+.editor-wrapper {
+  width: 100% !important;
+  display: block !important;
+  margin-bottom: 25px !important;
+  height: 400px !important;
+}
+
+.editor-main {
+  height: 275px !important;
+  border: 1px solid #ced4da !important;
+  padding: 5px !important;
+  border-radius: 2px !important;
+}
+
+.editor-toolbar {
+  border: 1px solid #ced4da !important;
+}
+
+.editor-overflow-hidden {
+  overflow: hidden !important;
+}
