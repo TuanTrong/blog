@@ -24,8 +24,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/article", articleRouter);
-app.use("/category", categoryRouter);
+app.use("/articles", articleRouter);
+app.use("/categories", categoryRouter);
 
 mongoose
   .connect(process.env.MONGOLAB_URI, { useNewUrlParser: true })

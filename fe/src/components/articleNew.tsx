@@ -2,21 +2,34 @@ import React from "react";
 import Axios from "axios";
 import { Form, Button, DropdownButton, Dropdown } from "react-bootstrap";
 import { PublishStatus, VisibleStatus } from "../models/article";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import { enumToArray } from "../utils/enumHelper";
 import { getRandomImage } from "../utils/random";
-import { EditorState, convertToRaw, RawDraftContentState } from "draft-js";
+import {
+  EditorState,
+  convertFromRaw,
+  convertToRaw,
+  RawDraftContentState
+} from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import { Category } from "../models/category";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
 
+export interface IArticleFormProps {
+  articleId: string;
+}
+
 @observer
-export class NewArticleForm extends React.Component {
+export class ArticleForm extends React.Component<
+  RouteComponentProps<IArticleFormProps>
+> {
   @observable categories: Category[] = [];
+  @observable validated: boolean = false;
+  @observable saved: boolean = false;
 
   @observable title: string = "";
-  @observable image: string = getRandomImage();
+  @observable image: string = "";
   @observable shortContent: string = "";
   @observable tags?: string[];
   @observable author: string = "";
@@ -25,10 +38,9 @@ export class NewArticleForm extends React.Component {
   @observable categoryId?: string;
   @observable selectedCategory?: string = "";
   @observable editorState: EditorState = EditorState.createEmpty();
-  @observable validated: boolean = false;
-  @observable saved: boolean = false;
 
   detailContent?: RawDraftContentState;
+  isCreating: boolean = this.props.match.params.articleId === "0";
 
   async handleSubmit(event: any) {
     event.preventDefault();
@@ -38,7 +50,7 @@ export class NewArticleForm extends React.Component {
 
       this.validated = true;
     } else {
-      await Axios.post(`${process.env.REACT_APP_API_URL_ARTICLE}/0`, {
+      const data = {
         title: this.title,
         image: this.image,
         shortContent: this.shortContent,
@@ -50,7 +62,18 @@ export class NewArticleForm extends React.Component {
         publishStatus: this.publishStatus,
         visibleStatus: this.visibleStatus,
         categoryId: this.categoryId
-      });
+      };
+
+      if (this.isCreating) {
+        await Axios.post(`${process.env.REACT_APP_API_URL_ARTICLE}`, data);
+      } else {
+        await Axios.put(
+          `${process.env.REACT_APP_API_URL_ARTICLE}/${
+            this.props.match.params.articleId
+          }`,
+          data
+        );
+      }
 
       this.saved = true;
       window.scrollTo(0, 0);
@@ -58,18 +81,45 @@ export class NewArticleForm extends React.Component {
   }
 
   async componentDidMount() {
-    let result = await Axios.get(`${process.env.REACT_APP_API_URL_CATEGORY}`);
+    let categories = await Axios.get(
+      `${process.env.REACT_APP_API_URL_CATEGORY}`
+    );
+    this.categories = categories.data;
 
-    this.categories = result.data;
-    this.categoryId = result.data[0]._id;
-    this.selectedCategory = result.data[0].title;
+    if (!this.isCreating) {
+      let articleResult = await Axios.get(
+        `${process.env.REACT_APP_API_URL_ARTICLE}/${
+          this.props.match.params.articleId
+        }`
+      );
+
+      this.title = articleResult.data.title;
+      this.image = articleResult.data.image;
+      this.shortContent = articleResult.data.shortContent;
+      if (articleResult.data.detailContent)
+        this.editorState = EditorState.createWithContent(
+          convertFromRaw(JSON.parse(articleResult.data.detailContent))
+        );
+      this.tags = articleResult.data.tags.join();
+      this.author = articleResult.data.author;
+      this.publishStatus = articleResult.data.publishStatus;
+      this.visibleStatus = articleResult.data.visibleStatus;
+      this.categoryId = articleResult.data.categoryId;
+      this.selectedCategory = this.categories.find(
+        category => category._id === this.categoryId
+      )!.title;
+    } else {
+      this.image = getRandomImage();
+      this.categoryId = categories.data[0]._id;
+      this.selectedCategory = categories.data[0].title;
+    }
   }
 
   render() {
     return (
       <div>
         <h1 className="mt-4">
-          Create new Article
+          {this.isCreating ? "Create new Article" : "Edit Article"}
           <Link to={"/"} className="btn btn-light float-right align-bottom">
             &lArr; Back
           </Link>
@@ -103,6 +153,7 @@ export class NewArticleForm extends React.Component {
               required
               type="text"
               placeholder="Title"
+              defaultValue={this.title}
               onChange={(e: any) => (this.title = e.target.value)}
             />
             <Form.Control.Feedback type="invalid">
@@ -128,6 +179,7 @@ export class NewArticleForm extends React.Component {
               required
               type="text"
               placeholder="Short Content"
+              defaultValue={this.shortContent}
               onChange={(e: any) => (this.shortContent = e.target.value)}
             />
             <Form.Control.Feedback type="invalid">
@@ -151,6 +203,7 @@ export class NewArticleForm extends React.Component {
             <Form.Control
               type="text"
               placeholder="Tags seperated by ,"
+              defaultValue={this.tags}
               onChange={(e: any) => (this.tags = e.target.value)}
             />
           </Form.Group>
@@ -160,6 +213,7 @@ export class NewArticleForm extends React.Component {
               required
               type="text"
               placeholder="Author"
+              defaultValue={this.author}
               onChange={(e: any) => (this.author = e.target.value)}
             />
             <Form.Control.Feedback type="invalid">
@@ -233,7 +287,7 @@ export class NewArticleForm extends React.Component {
                 })}
             </DropdownButton>
           </Form.Group>
-          <Button type="submit">Create</Button>
+          <Button type="submit">{this.isCreating ? "Create" : "Save"}</Button>
         </Form>
       </div>
     );

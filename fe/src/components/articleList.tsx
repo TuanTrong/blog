@@ -24,7 +24,7 @@ export class ArticleList extends React.Component {
         <h1 className="my-4">
           I'm a Developer & I love...
           <Link
-            to={"/new/article"}
+            to={"/articles/edit/0"}
             className="btn btn-light float-right align-bottom"
           >
             &#10133; New Article

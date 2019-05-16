@@ -17,49 +17,49 @@ function findArticleById(req, res) {
   });
 }
 
-function upsertArticleById(req, res) {
-  if (req.params.id != 0) {
-    Article.findByIdAndUpdate(
-      req.params.id,
-      {
-        title: req.body.title,
-        image: req.body.image,
-        shortContent: req.body.shortContent,
-        detailContent: req.body.detailContent,
-        tags: req.body.tags,
-        publishStatus: req.body.publishStatus,
-        visibleStatus: req.body.visibleStatus,
+function insertArticle(req, res) {
+  var article = new Article({
+    title: req.body.title,
+    image: req.body.image,
+    shortContent: req.body.shortContent,
+    detailContent: req.body.detailContent,
+    tags: req.body.tags,
+    author: req.body.author,
+    publishStatus: req.body.publishStatus,
+    visibleStatus: req.body.visibleStatus,
+    viewCount: 0,
 
-        categoryId: req.body.categoryId
-      },
-      (err, article) => {
-        if (err) throw err;
+    categoryId: req.body.categoryId,
+    createDate: new Date()
+  });
 
-        res.send("updated");
-      }
-    );
-  } else {
-    var article = new Article({
+  article.save(err => {
+    if (err) throw err;
+
+    res.send("inserted");
+  });
+}
+
+function updateArticleById(req, res) {
+  Article.findOneAndUpdate(
+    { _id: ObjectId(req.params.id) },
+    {
       title: req.body.title,
       image: req.body.image,
       shortContent: req.body.shortContent,
       detailContent: req.body.detailContent,
       tags: req.body.tags,
-      author: req.body.author,
       publishStatus: req.body.publishStatus,
       visibleStatus: req.body.visibleStatus,
-      viewCount: 0,
 
-      categoryId: req.body.categoryId,
-      createDate: new Date()
-    });
-
-    article.save(err => {
+      categoryId: req.body.categoryId
+    },
+    (err, article) => {
       if (err) throw err;
 
-      res.send("inserted");
-    });
-  }
+      res.send("updated");
+    }
+  );
 }
 
 function deleteArticleById(req, res) {
@@ -71,6 +71,7 @@ function deleteArticleById(req, res) {
 module.exports = {
   getAllArticle,
   findArticleById,
-  upsertArticleById,
+  insertArticle,
+  updateArticleById,
   deleteArticleById
 };

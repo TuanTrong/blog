@@ -78,12 +78,12 @@ export class ArticleDetailComponent extends React.Component<
         )}
         <hr />
         <div className="btn-toolbar float-right">
-          <Button
-            onClick={(e: React.MouseEvent) => this.editArticle(e)}
+          <Link
+            to={`/articles/edit/${this.props.match.params.articleId}`}
             className="btn btn-warning mr-2"
           >
             &#x270E; Edit
-          </Button>
+          </Link>
           <Button
             onClick={(e: React.MouseEvent) => {
               if (
@@ -102,8 +102,6 @@ export class ArticleDetailComponent extends React.Component<
       </div>
     );
   }
-
-  editArticle(e: React.MouseEvent): void {}
 
   async deleteArticle(e: React.MouseEvent): Promise<void> {
     let result = await Axios.delete(

@@ -52,7 +52,7 @@ module.exports = app => {
         visibleStatus: "Hot",
         viewCount: 573,
         categoryId: "5cd67e886a2d062fe06d0144",
-        createDate: new Date()
+        createDate: new Date(2019, 1, 12)
       },
       {
         title: "Secrets of the JavaScript Ninja—The JavaScript Ecosystem",
@@ -65,7 +65,7 @@ module.exports = app => {
         visibleStatus: "Docked",
         viewCount: 854,
         categoryId: "5cd67e885b7968371129b129",
-        createDate: new Date()
+        createDate: new Date(2018, 3, 14)
       },
       {
         title: "Profiling NodeJS",
@@ -78,7 +78,7 @@ module.exports = app => {
         visibleStatus: "Normal",
         viewCount: 376,
         categoryId: "5cd67e8864a9d1e22b4889d9",
-        createDate: new Date()
+        createDate: new Date(2016, 2, 2)
       },
       {
         title: "Modular HTML pages",
@@ -91,7 +91,7 @@ module.exports = app => {
         visibleStatus: "Hot",
         viewCount: 808,
         categoryId: "5cd67e886a2d062fe06d0144",
-        createDate: new Date()
+        createDate: new Date(2019, 4, 1)
       },
       {
         title: "Tufte CSS",
@@ -111,7 +111,7 @@ module.exports = app => {
         visibleStatus: "Docked",
         viewCount: 102,
         categoryId: "5cd67ee94759da8cf4d94e66",
-        createDate: new Date()
+        createDate: new Date(2011, 9, 7)
       },
       {
         title: " Nesting in Less and Sass",
@@ -124,7 +124,7 @@ module.exports = app => {
         visibleStatus: "Docked",
         viewCount: 832,
         categoryId: "5cd67ee94759da8cf4d94e66",
-        createDate: new Date()
+        createDate: new Date(2012, 5, 2)
       }
     ];
 

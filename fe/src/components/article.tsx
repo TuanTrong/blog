@@ -22,7 +22,7 @@ export class ArticleComponent extends React.Component<IArticleData> {
           <p className="card-text">{this.props.article.shortContent}</p>
           {tags.create(this.props.article.tags)}
           <Link
-            to={`/article/${this.props.article._id}`}
+            to={`/articles/show/${this.props.article._id}`}
             className="btn btn-primary"
           >
             Read More &rarr;

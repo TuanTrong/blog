@@ -5,12 +5,15 @@ var router = express.Router({
   mergeParams: true
 });
 
-router.get("/", articleController.getAllArticle);
+router
+  .route("/")
+  .get(articleController.getAllArticle)
+  .post(articleController.insertArticle);
 
 router
   .route("/:id")
   .get(articleController.findArticleById)
-  .post(articleController.upsertArticleById)
+  .put(articleController.updateArticleById)
   .delete(articleController.deleteArticleById);
 
 module.exports = router;
