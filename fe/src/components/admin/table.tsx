@@ -1,0 +1,117 @@
+import React from "react";
+import Axios from "axios";
+import { observable } from "mobx";
+import { observer } from "mobx-react";
+import { Link } from "react-router-dom";
+import {
+  BootstrapTable,
+  TableHeaderColumn,
+  Options,
+  SelectRow
+} from "react-bootstrap-table";
+import { BaseModel } from "../../models/base";
+
+export interface IAdminTableProps {
+  tableHeaderLabel: string;
+  getHeaders: (items: BaseModel[]) => JSX.Element[];
+  itemUrl: string;
+  apiUrl: string;
+}
+
+@observer
+export class AdminTable extends React.Component<IAdminTableProps> {
+  @observable
+  items: BaseModel[] = [];
+
+  selectedItems: BaseModel = new BaseModel();
+
+  tableOption: Options = {
+    defaultSortName: "title",
+    defaultSortOrder: "desc",
+    onRowClick: (row: BaseModel) => {
+      this.selectedItems = row;
+    },
+
+    sizePerPageDropDown: _ => {
+      return (
+        <div>
+          <Link
+            to={`/admin/${this.props.itemUrl}/edit/0`}
+            className="btn btn-success mr-2"
+            title="Create New"
+          >
+            +
+          </Link>
+          <Link
+            to={`/admin/${this.props.itemUrl}/edit/${this.selectedItems._id}`}
+            className="btn btn-warning mr-2"
+          >
+            &#x270E;
+          </Link>
+          <Link
+            to="#"
+            onClick={e => this.deleteItem(e)}
+            className="btn btn-danger"
+          >
+            &#x1f5d1;
+          </Link>
+        </div>
+      );
+    }
+  };
+
+  tableSelectRowOption: SelectRow = {
+    mode: "radio",
+    clickToSelect: true,
+    className: "table-secondary"
+  };
+
+  async componentDidMount() {
+    let result = await Axios.get(this.props.apiUrl);
+
+    this.items = result.data;
+  }
+
+  render() {
+    return (
+      <div className="col-md-12">
+        <h2>{this.props.tableHeaderLabel}</h2>
+        <BootstrapTable
+          data={this.items}
+          options={this.tableOption}
+          selectRow={this.tableSelectRowOption}
+          pagination
+          hover
+        >
+          <TableHeaderColumn dataField="_id" isKey={true}>
+            ID
+          </TableHeaderColumn>
+          <TableHeaderColumn dataField="title" dataSort={true}>
+            Title
+          </TableHeaderColumn>
+          {this.props.getHeaders(this.items)}
+        </BootstrapTable>
+      </div>
+    );
+  }
+
+  async deleteItem(e: React.MouseEvent): Promise<void> {
+    e.preventDefault();
+
+    if (
+      !this.selectedItems._id ||
+      !window.confirm(`Are you sure to delete: ${this.selectedItems.title}?`)
+    )
+      return;
+
+    let result = await Axios.delete(
+      `${this.props.apiUrl}/${this.selectedItems._id}`
+    );
+
+    if (result.data === "deleted") {
+      this.items = this.items.filter(
+        item => item._id !== this.selectedItems._id
+      );
+    }
+  }
+}

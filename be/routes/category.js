@@ -5,12 +5,15 @@ var router = express.Router({
   mergeParams: true
 });
 
-router.get("/", categoryController.getAllCategory);
+router
+  .route("/")
+  .get(categoryController.getAllCategory)
+  .post(categoryController.insertCategory);
 
 router
   .route("/:id")
   .get(categoryController.findCategoryById)
-  .post(categoryController.upsertCategoryById)
+  .put(categoryController.updateCategoryById)
   .delete(categoryController.deleteCategoryById);
 
 module.exports = router;

@@ -1,11 +1,8 @@
 import React from "react";
 import Axios from "axios";
-import { Article } from "../models/article";
+import { Article } from "../../models/article";
 import { RouteComponentProps, Redirect } from "react-router";
-import { formatDate } from "../utils/formatDate";
-import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import { redirectToPath } from "../utils/redirectToPath";
+import { formatDate } from "../../utils/formatDate";
 import * as tags from "./tags";
 import { EditorState, convertFromRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
@@ -50,13 +47,8 @@ export class ArticleDetailComponent extends React.Component<
     }
 
     return (
-      <div>
-        <h1 className="mt-4">
-          {this.article.title}
-          <Link to={"/"} className="btn btn-light float-right align-bottom">
-            &lArr; Back
-          </Link>
-        </h1>
+      <div className="col-md-8">
+        <h1 className="mt-4">{this.article.title}</h1>
         <p className="lead">
           by
           <cite> {this.article.author}</cite>
@@ -76,42 +68,7 @@ export class ArticleDetailComponent extends React.Component<
             toolbarHidden={true}
           />
         )}
-        <hr />
-        <div className="btn-toolbar float-right">
-          <Link
-            to={`/articles/edit/${this.props.match.params.articleId}`}
-            className="btn btn-warning mr-2"
-          >
-            &#x270E; Edit
-          </Link>
-          <Button
-            onClick={(e: React.MouseEvent) => {
-              if (
-                window.confirm(
-                  `Are you sure to delete article: ${this.article.title}?`
-                )
-              ) {
-                this.deleteArticle(e);
-              }
-            }}
-            className="btn btn-danger"
-          >
-            &#x1f5d1; Delete
-          </Button>
-        </div>
       </div>
     );
-  }
-
-  async deleteArticle(e: React.MouseEvent): Promise<void> {
-    let result = await Axios.delete(
-      `${process.env.REACT_APP_API_URL_ARTICLE}/${
-        this.props.match.params.articleId
-      }`
-    );
-
-    if (result.data === "deleted") {
-      redirectToPath(this, "/");
-    }
   }
 }

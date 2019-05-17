@@ -1,6 +1,6 @@
-export class Category {
-  _id: string | undefined;
-  title: string | undefined;
+import { BaseModel } from "./base";
+
+export class Category extends BaseModel {
   parentId: string | undefined;
 
   value: string | undefined;

@@ -1,10 +1,10 @@
 import React from "react";
 import Axios from "axios";
 import { Form, Button, DropdownButton, Dropdown } from "react-bootstrap";
-import { PublishStatus, VisibleStatus } from "../models/article";
+import { PublishStatus, VisibleStatus } from "../../models/article";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { enumToArray } from "../utils/enumHelper";
-import { getRandomImage } from "../utils/random";
+import { enumToArray } from "../../utils/enumHelper";
+import { getRandomImage } from "../../utils/random";
 import {
   EditorState,
   convertFromRaw,
@@ -12,7 +12,7 @@ import {
   RawDraftContentState
 } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
-import { Category } from "../models/category";
+import { Category } from "../../models/category";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
 
@@ -110,17 +110,20 @@ export class ArticleForm extends React.Component<
       )!.title;
     } else {
       this.image = getRandomImage();
-      this.categoryId = categories.data[0]._id;
-      this.selectedCategory = categories.data[0].title;
+      this.categoryId = this.categories[0]._id;
+      this.selectedCategory = this.categories[0].title;
     }
   }
 
   render() {
     return (
-      <div>
+      <div className="col-md-12">
         <h1 className="mt-4">
           {this.isCreating ? "Create new Article" : "Edit Article"}
-          <Link to={"/"} className="btn btn-light float-right align-bottom">
+          <Link
+            to={"/admin"}
+            className="btn btn-light float-right align-bottom"
+          >
             &lArr; Back
           </Link>
         </h1>

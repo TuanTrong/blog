@@ -1,67 +1,69 @@
 const Category = require("../models/category");
+var ObjectId = require("mongodb").ObjectID;
 
-function getAllCategory(req, res) {
+function getAllCategory(req, res, next) {
   Category.find((err, categories) => {
-    if (err) throw err;
+    if (err) next(err);
 
     res.send(categories);
   });
 }
 
-function findCategoryById(req, res) {
+function findCategoryById(req, res, next) {
   Category.findById(req.params.id, (err, category) => {
-    if (err) throw err;
+    if (err || !category) return next(err);
 
     res.send(category);
   });
 }
 
-function upsertCategoryById(req, res) {
-  if (req.body.id) {
-    Category.findByIdAndUpdate(
-      req.body.id,
-      {
-        title: req.body.title,
-        image: req.body.image,
-        shortContent: req.body.shortContent,
-        detailContent: req.body.detailContent,
-        tags: req.body.tags,
-        publishStatus: req.body.publishStatus,
-        visibleStatus: req.body.visibleStatus,
+function insertCategory(req, res, next) {
+  var category = new Category({
+    title: req.body.title,
+    parentId: req.body.parentId
+  });
 
-        categoryId: req.body.categoryId
-      },
-      (err, category) => {
-        if (err) throw err;
+  category.save(err => {
+    if (err) next(err);
 
-        res.send("success");
-      }
-    );
-  } else {
-    var category = new Category({
-      title: req.body.title,
-      parentId: req.body.parentId
-    });
-
-    Category.save(err => {
-      if (err) throw err;
-
-      res.send("success");
-    });
-  }
+    res.send("inserted");
+  });
 }
 
-function deleteCategoryById(req, res) {
-  Category.findByIdAndRemove(req.body.id, err => {
-    if (err) throw err;
+function updateCategoryById(req, res) {
+  Category.findOneAndUpdate(
+    { _id: ObjectId(req.params.id) },
+    {
+      title: req.body.title,
+      image: req.body.image,
+      shortContent: req.body.shortContent,
+      detailContent: req.body.detailContent,
+      tags: req.body.tags,
+      publishStatus: req.body.publishStatus,
+      visibleStatus: req.body.visibleStatus,
 
-    res.send("success");
+      categoryId: req.body.categoryId
+    },
+    err => {
+      if (err) next(err);
+
+      res.send("updated");
+    }
+  );
+}
+
+function deleteCategoryById(req, res, next) {
+  Category.findOneAndRemove({ _id: ObjectId(req.params.id) }, err => {
+    if (err) next(err);
+
+    res.send("deleted");
   });
 }
 
 module.exports = {
   getAllCategory,
   findCategoryById,
-  upsertCategoryById,
+  insertCategory,
+  updateCategoryById,
   deleteCategoryById
 };

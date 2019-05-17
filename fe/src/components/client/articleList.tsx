@@ -1,9 +1,8 @@
 import React from "react";
 import Axios from "axios";
-import { Link } from "react-router-dom";
 import { ArticleComponent } from "./article";
-import { Article } from "../models/article";
-import { sortArticleByCreatedDate } from "../utils/articleUtils";
+import { Article } from "../../models/article";
+import { sortArticleByCreatedDate } from "../../utils/articleUtils";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
 
@@ -20,16 +19,8 @@ export class ArticleList extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1 className="my-4">
-          I'm a Developer & I love...
-          <Link
-            to={"/articles/edit/0"}
-            className="btn btn-light float-right align-bottom"
-          >
-            &#10133; New Article
-          </Link>
-        </h1>
+      <div className="col-md-8">
+        <h1 className="my-4">I'm a Developer & I love...</h1>
 
         {sortArticleByCreatedDate(this.articles).map((a: Article) => (
           <ArticleComponent key={a._id} article={a} />

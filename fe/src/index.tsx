@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 
 require("dotenv").config();
 

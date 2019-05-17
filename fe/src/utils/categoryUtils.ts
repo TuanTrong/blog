@@ -17,3 +17,16 @@ export function toTree(categories: Category[]) {
 
   return dataTree;
 }
+
+export function findParentCategory(
+  categories: Category[],
+  parentId: string
+): string {
+  if (parentId === "0") return "";
+
+  let parentCategory = categories.find(category => category._id === parentId);
+
+  if (parentCategory && parentCategory.title) return parentCategory.title;
+
+  return "";
+}

@@ -1,3 +1,5 @@
+import { BaseModel } from "./base";
+
 export enum PublishStatus {
   Draft = "Draft",
   Published = "Published",
@@ -10,9 +12,7 @@ export enum VisibleStatus {
   Docked = "Docked"
 }
 
-export class Article {
-  _id: string | undefined;
-  title: string | undefined;
+export class Article extends BaseModel {
   image: string | undefined;
   shortContent: string | undefined;
   detailContent: string | undefined;

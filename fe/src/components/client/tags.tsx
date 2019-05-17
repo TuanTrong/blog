@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getRandomBadgesClassname } from "../utils/random";
+import { getRandomBadgesClassname } from "../../utils/random";
 
 export function create(tags?: string[]) {
   if (!tags || !tags.length) return null;
