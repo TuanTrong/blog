@@ -19,13 +19,11 @@ export class CategoryComponent extends React.Component {
 
   render() {
     return (
-      <div className="col-md-4">
-        <div className="card my-4">
-          <h5 className="card-header">Categories</h5>
-          <div className="card-body">
-            <div className="row">
-              <MuiTreeView tree={toTree(this.categories) as any} />
-            </div>
+      <div className="col-md-3">
+        <div className="my-4">
+          <h5>Categories</h5>
+          <div className="row">
+            <MuiTreeView tree={toTree(this.categories) as any} />
           </div>
         </div>
       </div>

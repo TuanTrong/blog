@@ -17,7 +17,6 @@ export function create(tags?: string[]) {
           </Link>
         ))}
       </p>
-      <hr />
     </div>
   );
 }

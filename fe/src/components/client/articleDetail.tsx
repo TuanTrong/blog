@@ -47,15 +47,15 @@ export class ArticleDetailComponent extends React.Component<
     }
 
     return (
-      <div className="col-md-8">
-        <h1 className="mt-4">{this.article.title}</h1>
-        <p className="lead">
-          by
-          <cite> {this.article.author}</cite>
-        </p>
-        <hr />
+      <div className="col-md-9">
+        <h4 className="mt-4">
+          {this.article.title}
+          <span className="lead">
+            &nbsp; by
+            <cite> {this.article.author}</cite>
+          </span>
+        </h4>
         <p>Posted on {formatDate(this.article.createDate)}</p>
-        <hr />
         {tags.create(this.article.tags)}
         <img className="img-fluid rounded" src={this.article.image} alt="" />
         <hr />

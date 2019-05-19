@@ -19,13 +19,13 @@ export class ArticleList extends React.Component {
 
   render() {
     return (
-      <div className="col-md-8">
-        <h1 className="my-4">I'm a Developer & I love...</h1>
-
-        {sortArticleByCreatedDate(this.articles).map((a: Article) => (
-          <ArticleComponent key={a._id} article={a} />
-        ))}
-
+      <div className="col-md-9">
+        <h1 className="my-4">{process.env.REACT_APP_HEADER_TITLE}</h1>
+        <div className="card-columns">
+          {sortArticleByCreatedDate(this.articles).map((a: Article) => (
+            <ArticleComponent key={a._id} article={a} />
+          ))}
+        </div>
         <ul className="pagination justify-content-center mb-4">
           <li className="page-item">
             <a className="page-link" href="/">

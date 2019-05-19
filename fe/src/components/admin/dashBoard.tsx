@@ -10,9 +10,9 @@ import { findParentCategory } from "../../utils/categoryUtils";
 export class AdminDashBoard extends React.Component {
   render() {
     return (
-      <div className="col-md-12">
+      <div>
         <AdminTable
-          tableHeaderLabel="Artiles"
+          tableHeaderLabel="Articles"
           apiUrl={process.env.REACT_APP_API_URL_ARTICLE!}
           itemUrl="articles"
           getHeaders={_ => getArticleHeaders()}

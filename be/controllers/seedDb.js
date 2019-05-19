@@ -46,7 +46,7 @@ module.exports = app => {
         title: "JavaScript Functions as JavaScript Variables",
         image: "https://picsum.photos/750/300?random=1",
         shortContent: "Function Basics. Level Set!",
-        tags: ["javascript", "web", "front-end"],
+        tags: ["javascript", "web"],
         author: "Boyd Wyatt",
         publishStatus: "Draft",
         visibleStatus: "Hot",
@@ -59,7 +59,7 @@ module.exports = app => {
         image: "https://picsum.photos/750/300?random=2",
         shortContent:
           "Applications based on the ideas originating from the web are becoming ubiquitous – the technologies we once exclusively used to develop client-side web applications, executed in the browser, have...",
-        tags: ["js", "javascript", "advanced js"],
+        tags: ["js", "advanced js"],
         author: "Barton Wynn",
         publishStatus: "Deleted",
         visibleStatus: "Docked",
@@ -72,7 +72,7 @@ module.exports = app => {
         image: "https://picsum.photos/750/300?random=3",
         shortContent:
           "Learn how to use the Linux performance analysis tool to diagnose problems in your application for debugging or performance optimization.",
-        tags: ["node", "node js", "back-end ", "Node JS"],
+        tags: ["node", "back-end"],
         author: "Hunter Stone",
         publishStatus: "Published",
         visibleStatus: "Normal",
@@ -85,7 +85,7 @@ module.exports = app => {
         image: "https://picsum.photos/750/300?random=4",
         shortContent:
           "When statically generating HTML content, you face an interesting challenge: If the page frame (the “chrome” of a page) contains information that changes frequently, you need to re-generate all pages...",
-        tags: ["html", "web design", "front-end", "UI", "clean code"],
+        tags: ["UI", "clean code"],
         author: "Tammi Wolf",
         publishStatus: "Deleted",
         visibleStatus: "Hot",
@@ -98,14 +98,7 @@ module.exports = app => {
         image: "https://picsum.photos/750/300?random=5",
         shortContent:
           "Tufte CSS provides tools to style web articles using the ideas demonstrated by Edward Tufte’s books and handouts. Tufte’s style is known for its simplicity, extensive use of sidenotes, tight...",
-        tags: [
-          "css",
-          "front-end",
-          "web design",
-          "siamana",
-          "welses",
-          "aef asiso"
-        ],
+        tags: ["css", "front-end"],
         author: "Elise Rodriquez",
         publishStatus: "Deleted",
         visibleStatus: "Docked",
@@ -118,7 +111,7 @@ module.exports = app => {
         image: "https://picsum.photos/750/300?random=6",
         shortContent:
           "This article will give you a birds-eye-view on nesting (get it?) using these two well known and commonly used CSS pre-processors.",
-        tags: ["less", "sass", "css", "font-end ", "web-design"],
+        tags: ["less", "sass", "css"],
         author: "Gallagher Leach",
         publishStatus: "Published",
         visibleStatus: "Docked",
@@ -128,9 +121,9 @@ module.exports = app => {
       },
       {
         title: "JavaScript Functions as JavaScript Variables",
-        image: "https://picsum.photos/750/300?random=1",
+        image: "https://picsum.photos/750/300?random=7",
         shortContent: "Function Basics. Level Set!",
-        tags: ["javascript", "web", "front-end"],
+        tags: ["web", "front-end"],
         author: "Boyd Wyatt",
         publishStatus: "Draft",
         visibleStatus: "Hot",
@@ -140,10 +133,10 @@ module.exports = app => {
       },
       {
         title: "Secrets of the JavaScript Ninja—The JavaScript Ecosystem",
-        image: "https://picsum.photos/750/300?random=2",
+        image: "https://picsum.photos/750/300?random=8",
         shortContent:
           "Applications based on the ideas originating from the web are becoming ubiquitous – the technologies we once exclusively used to develop client-side web applications, executed in the browser, have...",
-        tags: ["js", "javascript", "advanced js"],
+        tags: ["js", "advanced js"],
         author: "Barton Wynn",
         publishStatus: "Deleted",
         visibleStatus: "Docked",
@@ -153,10 +146,10 @@ module.exports = app => {
       },
       {
         title: "Profiling NodeJS",
-        image: "https://picsum.photos/750/300?random=3",
+        image: "https://picsum.photos/750/300?random=9",
         shortContent:
           "Learn how to use the Linux performance analysis tool to diagnose problems in your application for debugging or performance optimization.",
-        tags: ["node", "node js", "back-end ", "Node JS"],
+        tags: ["node js", "back-end "],
         author: "Hunter Stone",
         publishStatus: "Published",
         visibleStatus: "Normal",
@@ -166,10 +159,10 @@ module.exports = app => {
       },
       {
         title: "Modular HTML pages",
-        image: "https://picsum.photos/750/300?random=4",
+        image: "https://picsum.photos/750/300?random=10",
         shortContent:
           "When statically generating HTML content, you face an interesting challenge: If the page frame (the “chrome” of a page) contains information that changes frequently, you need to re-generate all pages...",
-        tags: ["html", "web design", "front-end", "UI", "clean code"],
+        tags: ["html", "clean code"],
         author: "Tammi Wolf",
         publishStatus: "Deleted",
         visibleStatus: "Hot",
@@ -179,17 +172,10 @@ module.exports = app => {
       },
       {
         title: "Tufte CSS",
-        image: "https://picsum.photos/750/300?random=5",
+        image: "https://picsum.photos/750/300?random=11",
         shortContent:
           "Tufte CSS provides tools to style web articles using the ideas demonstrated by Edward Tufte’s books and handouts. Tufte’s style is known for its simplicity, extensive use of sidenotes, tight...",
-        tags: [
-          "css",
-          "front-end",
-          "web design",
-          "siamana",
-          "welses",
-          "aef asiso"
-        ],
+        tags: ["css", "web design"],
         author: "Elise Rodriquez",
         publishStatus: "Deleted",
         visibleStatus: "Docked",
@@ -199,10 +185,10 @@ module.exports = app => {
       },
       {
         title: " Nesting in Less and Sass",
-        image: "https://picsum.photos/750/300?random=6",
+        image: "https://picsum.photos/750/300?random=12",
         shortContent:
           "This article will give you a birds-eye-view on nesting (get it?) using these two well known and commonly used CSS pre-processors.",
-        tags: ["less", "sass", "css", "font-end ", "web-design"],
+        tags: ["web-design"],
         author: "Gallagher Leach",
         publishStatus: "Published",
         visibleStatus: "Docked",
@@ -212,9 +198,9 @@ module.exports = app => {
       },
       {
         title: "JavaScript Functions as JavaScript Variables",
-        image: "https://picsum.photos/750/300?random=1",
+        image: "https://picsum.photos/750/300?random=13",
         shortContent: "Function Basics. Level Set!",
-        tags: ["javascript", "web", "front-end"],
+        tags: ["web", "front-end"],
         author: "Boyd Wyatt",
         publishStatus: "Draft",
         visibleStatus: "Hot",
@@ -224,10 +210,10 @@ module.exports = app => {
       },
       {
         title: "Secrets of the JavaScript Ninja—The JavaScript Ecosystem",
-        image: "https://picsum.photos/750/300?random=2",
+        image: "https://picsum.photos/750/300?random=14",
         shortContent:
           "Applications based on the ideas originating from the web are becoming ubiquitous – the technologies we once exclusively used to develop client-side web applications, executed in the browser, have...",
-        tags: ["js", "javascript", "advanced js"],
+        tags: ["js", "javascript"],
         author: "Barton Wynn",
         publishStatus: "Deleted",
         visibleStatus: "Docked",
@@ -237,10 +223,10 @@ module.exports = app => {
       },
       {
         title: "Profiling NodeJS",
-        image: "https://picsum.photos/750/300?random=3",
+        image: "https://picsum.photos/750/300?random=15",
         shortContent:
           "Learn how to use the Linux performance analysis tool to diagnose problems in your application for debugging or performance optimization.",
-        tags: ["node", "node js", "back-end ", "Node JS"],
+        tags: ["node", "Node JS"],
         author: "Hunter Stone",
         publishStatus: "Published",
         visibleStatus: "Normal",
@@ -250,10 +236,10 @@ module.exports = app => {
       },
       {
         title: "Modular HTML pages",
-        image: "https://picsum.photos/750/300?random=4",
+        image: "https://picsum.photos/750/300?random=16",
         shortContent:
           "When statically generating HTML content, you face an interesting challenge: If the page frame (the “chrome” of a page) contains information that changes frequently, you need to re-generate all pages...",
-        tags: ["html", "web design", "front-end", "UI", "clean code"],
+        tags: ["clean code"],
         author: "Tammi Wolf",
         publishStatus: "Deleted",
         visibleStatus: "Hot",
@@ -263,17 +249,10 @@ module.exports = app => {
       },
       {
         title: "Tufte CSS",
-        image: "https://picsum.photos/750/300?random=5",
+        image: "https://picsum.photos/750/300?random=17",
         shortContent:
           "Tufte CSS provides tools to style web articles using the ideas demonstrated by Edward Tufte’s books and handouts. Tufte’s style is known for its simplicity, extensive use of sidenotes, tight...",
-        tags: [
-          "css",
-          "front-end",
-          "web design",
-          "siamana",
-          "welses",
-          "aef asiso"
-        ],
+        tags: ["css"],
         author: "Elise Rodriquez",
         publishStatus: "Deleted",
         visibleStatus: "Docked",
@@ -283,10 +262,10 @@ module.exports = app => {
       },
       {
         title: " Nesting in Less and Sass",
-        image: "https://picsum.photos/750/300?random=6",
+        image: "https://picsum.photos/750/300?random=18",
         shortContent:
           "This article will give you a birds-eye-view on nesting (get it?) using these two well known and commonly used CSS pre-processors.",
-        tags: ["less", "sass", "css", "font-end ", "web-design"],
+        tags: ["web-design"],
         author: "Gallagher Leach",
         publishStatus: "Published",
         visibleStatus: "Docked",
@@ -296,9 +275,9 @@ module.exports = app => {
       },
       {
         title: "JavaScript Functions as JavaScript Variables",
-        image: "https://picsum.photos/750/300?random=1",
+        image: "https://picsum.photos/750/300?random=19",
         shortContent: "Function Basics. Level Set!",
-        tags: ["javascript", "web", "front-end"],
+        tags: ["javascript", "web"],
         author: "Boyd Wyatt",
         publishStatus: "Draft",
         visibleStatus: "Hot",
@@ -308,10 +287,10 @@ module.exports = app => {
       },
       {
         title: "Secrets of the JavaScript Ninja—The JavaScript Ecosystem",
-        image: "https://picsum.photos/750/300?random=2",
+        image: "https://picsum.photos/750/300?random=20",
         shortContent:
           "Applications based on the ideas originating from the web are becoming ubiquitous – the technologies we once exclusively used to develop client-side web applications, executed in the browser, have...",
-        tags: ["js", "javascript", "advanced js"],
+        tags: ["js", "javascript"],
         author: "Barton Wynn",
         publishStatus: "Deleted",
         visibleStatus: "Docked",
@@ -321,10 +300,10 @@ module.exports = app => {
       },
       {
         title: "Profiling NodeJS",
-        image: "https://picsum.photos/750/300?random=3",
+        image: "https://picsum.photos/750/300?random=21",
         shortContent:
           "Learn how to use the Linux performance analysis tool to diagnose problems in your application for debugging or performance optimization.",
-        tags: ["node", "node js", "back-end ", "Node JS"],
+        tags: ["node", "node js"],
         author: "Hunter Stone",
         publishStatus: "Published",
         visibleStatus: "Normal",
@@ -334,10 +313,10 @@ module.exports = app => {
       },
       {
         title: "Modular HTML pages",
-        image: "https://picsum.photos/750/300?random=4",
+        image: "https://picsum.photos/750/300?random=22",
         shortContent:
           "When statically generating HTML content, you face an interesting challenge: If the page frame (the “chrome” of a page) contains information that changes frequently, you need to re-generate all pages...",
-        tags: ["html", "web design", "front-end", "UI", "clean code"],
+        tags: ["html", "web design"],
         author: "Tammi Wolf",
         publishStatus: "Deleted",
         visibleStatus: "Hot",
@@ -347,17 +326,10 @@ module.exports = app => {
       },
       {
         title: "Tufte CSS",
-        image: "https://picsum.photos/750/300?random=5",
+        image: "https://picsum.photos/750/300?random=23",
         shortContent:
           "Tufte CSS provides tools to style web articles using the ideas demonstrated by Edward Tufte’s books and handouts. Tufte’s style is known for its simplicity, extensive use of sidenotes, tight...",
-        tags: [
-          "css",
-          "front-end",
-          "web design",
-          "siamana",
-          "welses",
-          "aef asiso"
-        ],
+        tags: ["css", "front-end", "web design"],
         author: "Elise Rodriquez",
         publishStatus: "Deleted",
         visibleStatus: "Docked",
@@ -367,10 +339,10 @@ module.exports = app => {
       },
       {
         title: " Nesting in Less and Sass",
-        image: "https://picsum.photos/750/300?random=6",
+        image: "https://picsum.photos/750/300?random=24",
         shortContent:
           "This article will give you a birds-eye-view on nesting (get it?) using these two well known and commonly used CSS pre-processors.",
-        tags: ["less", "sass", "css", "font-end ", "web-design"],
+        tags: ["less", "sass"],
         author: "Gallagher Leach",
         publishStatus: "Published",
         visibleStatus: "Docked",

@@ -15,24 +15,25 @@ export class ArticleComponent extends React.Component<IArticleData> {
         <img
           className="card-img-top"
           src={this.props.article.image}
-          alt="Card cap"
+          alt={this.props.article.shortContent}
         />
         <div className="card-body">
-          <h2 className="card-title">{this.props.article.title}</h2>
-          <p className="card-text">{this.props.article.shortContent}</p>
-          {tags.create(this.props.article.tags)}
           <Link
             to={`/articles/show/${this.props.article._id}`}
-            className="btn btn-primary"
+            className="card-link card-title"
           >
-            Read More &rarr;
+            {this.props.article.title}
           </Link>
+          <p className="card-text">{this.props.article.shortContent}</p>
+          {tags.create(this.props.article.tags)}
         </div>
-        <div className="card-footer text-muted">
-          Posted on&nbsp;
-          {formatDate(this.props.article.createDate)}
-          &nbsp;by&nbsp;
-          <cite>{this.props.article.author}</cite>
+        <div className="card-footer">
+          <small className="text-muted">
+            Posted on&nbsp;
+            {formatDate(this.props.article.createDate)}
+            &nbsp;by&nbsp;
+            <cite>{this.props.article.author}</cite>
+          </small>
         </div>
       </div>
     );

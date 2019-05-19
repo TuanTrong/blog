@@ -1,16 +1,16 @@
 import React from "react";
-import * as navigation from "./components/navigation";
-import * as footer from "./components/footer";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ClientLayout } from "./components/client/clientLayout";
 import { AdminLayout } from "./components/admin/adminLayout";
+import { Navigation } from "./components/navigation";
+import { Footer } from "./components/footer";
 
 export class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
         <div>
-          {navigation.create()}
+          <Navigation />
 
           <div className="container pb-2">
             <Switch>
@@ -19,7 +19,7 @@ export class App extends React.Component {
             </Switch>
           </div>
 
-          {footer.create()}
+          <Footer />
         </div>
       </BrowserRouter>
     );
