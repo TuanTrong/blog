@@ -1,4 +1,5 @@
 import React from "react";
+import DevTools from "mobx-react-devtools";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ClientLayout } from "./components/client/clientLayout";
 import { AdminLayout } from "./components/admin/adminLayout";
@@ -9,6 +10,7 @@ export class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
+        {process.env.NODE_ENV === "development" && <DevTools />}
         <div>
           <Navigation />
 
