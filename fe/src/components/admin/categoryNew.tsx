@@ -135,22 +135,20 @@ export class CategoryForm extends React.Component<
                 id="category-dropdown"
                 title={this.selectedParentTitle}
               >
-                {this.categories
-                  .filter(category => !category.nodes || !category.nodes.length)
-                  .map((category: Category) => {
-                    return (
-                      <Dropdown.Item
-                        key={category._id}
-                        eventKey={category._id}
-                        onSelect={(categoryId: string) => {
-                          this.parentId = categoryId;
-                          this.selectedParentTitle = category.title || "";
-                        }}
-                      >
-                        {category.title}
-                      </Dropdown.Item>
-                    );
-                  })}
+                {this.categories.map((category: Category) => {
+                  return (
+                    <Dropdown.Item
+                      key={category._id}
+                      eventKey={category._id}
+                      onSelect={(categoryId: string) => {
+                        this.parentId = categoryId;
+                        this.selectedParentTitle = category.title || "";
+                      }}
+                    >
+                      {category.title}
+                    </Dropdown.Item>
+                  );
+                })}
               </DropdownButton>
             </Form.Group>
           )}

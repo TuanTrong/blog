@@ -10,6 +10,8 @@ router
   .get(categoryController.getAllCategory)
   .post(categoryController.insertCategory);
 
+router.get("/:id/articles", categoryController.getAllArticleByCategory);
+
 router
   .route("/:id")
   .get(categoryController.findCategoryById)

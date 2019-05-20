@@ -1,4 +1,5 @@
 const Category = require("../models/category");
+const Article = require("../models/article");
 var ObjectId = require("mongodb").ObjectID;
 
 function getAllCategory(req, res, next) {
@@ -6,6 +7,14 @@ function getAllCategory(req, res, next) {
     if (err) next(err);
 
     res.send(categories);
+  });
+}
+
+function getAllArticleByCategory(req, res, next) {
+  Article.find({ categoryId: req.params.id }, (err, articles) => {
+    if (err) next(err);
+
+    res.send(articles);
   });
 }
 
@@ -62,6 +71,7 @@ function deleteCategoryById(req, res, next) {
 
 module.exports = {
   getAllCategory,
+  getAllArticleByCategory,
   findCategoryById,
   insertCategory,
   updateCategoryById,

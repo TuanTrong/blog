@@ -4,7 +4,12 @@ export function toTree(categories: Category[]) {
   let tree = Object.create(null);
 
   categories.forEach(
-    category => (tree[category._id!] = { value: category.title, nodes: [] })
+    category =>
+      (tree[category._id!] = {
+        id: category._id,
+        value: category.title,
+        nodes: []
+      })
   );
 
   let dataTree: any[] = [];
