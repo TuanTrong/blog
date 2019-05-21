@@ -3,11 +3,12 @@ import { Route, Switch } from "react-router";
 import { ArticleForm } from "./articleNew";
 import { CategoryForm } from "./categoryNew";
 import { AdminDashBoard } from "./dashBoard";
+import { Row } from "react-bootstrap";
 
 export class AdminLayout extends React.Component {
   render() {
     return (
-      <div className="row">
+      <Row>
         <Switch>
           <Route
             path="/admin/articles/edit/:articleId"
@@ -19,7 +20,7 @@ export class AdminLayout extends React.Component {
           />
           <Route path="/" component={AdminDashBoard} />
         </Switch>
-      </div>
+      </Row>
     );
   }
 }

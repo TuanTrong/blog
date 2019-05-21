@@ -1,11 +1,12 @@
 import React from "react";
-import Axios from "axios";
+import axios from "../../utils/axios";
 import { Article } from "../../models/article";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
 import { RouteComponentProps } from "react-router-dom";
 import { ArticleList } from "./articleList";
 import { sortArticle } from "../../utils/articleUtils";
+import { Col } from "react-bootstrap";
 
 export interface IArticleListByCategoryProps {
   categoryId: string;
@@ -36,14 +37,14 @@ export class ArticleListByCategory extends React.Component<
 
   render() {
     return (
-      <div className="col-md-9">
+      <Col md={{ span: 9 }}>
         {ArticleList.renderArticleList("Articles by category", this.articles)}
-      </div>
+      </Col>
     );
   }
 
   private async loadArticlesByCategory() {
-    let result = await Axios.get(
+    let result = await axios.get(
       `${process.env.REACT_APP_API_URL_CATEGORY}/${
         this.props.match.params.categoryId
       }/articles`

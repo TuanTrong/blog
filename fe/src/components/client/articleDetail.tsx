@@ -1,5 +1,5 @@
 import React from "react";
-import Axios from "axios";
+import axios from "../../utils/axios";
 import { Article } from "../../models/article";
 import { RouteComponentProps, Redirect } from "react-router";
 import { formatDate } from "../../utils/formatDate";
@@ -8,6 +8,7 @@ import { EditorState, convertFromRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import { observable } from "mobx";
 import { observer } from "mobx-react";
+import { Col, Image } from "react-bootstrap";
 
 export interface IArticleDetailProps {
   articleId: string;
@@ -22,7 +23,7 @@ export class ArticleDetailComponent extends React.Component<
 
   async componentDidMount() {
     try {
-      let result = await Axios.get(
+      let result = await axios.get(
         `${process.env.REACT_APP_API_URL_ARTICLE}/${
           this.props.match.params.articleId
         }`
@@ -47,7 +48,7 @@ export class ArticleDetailComponent extends React.Component<
     }
 
     return (
-      <div className="col-md-9">
+      <Col md={{ span: 9 }}>
         <h4 className="mt-4">
           {this.article.title}
           <span className="lead">
@@ -57,7 +58,8 @@ export class ArticleDetailComponent extends React.Component<
         </h4>
         <p>Posted on {formatDate(this.article.createDate)}</p>
         {tags.create(this.article.tags)}
-        <img className="img-fluid rounded" src={this.article.image} alt="" />
+        <hr />
+        <Image rounded fluid src={this.article.image} />
         <hr />
         <p className="lead">{this.article.shortContent}</p>
         {this.article.detailContent && (
@@ -68,7 +70,7 @@ export class ArticleDetailComponent extends React.Component<
             toolbarHidden={true}
           />
         )}
-      </div>
+      </Col>
     );
   }
 }

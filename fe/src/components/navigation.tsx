@@ -1,27 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Navbar, Container } from "react-bootstrap";
+import { isLoggedIn } from "../utils/cookie";
 
 export class Navigation extends React.Component {
   render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div className="container">
+      <Navbar variant="dark" bg="dark" expand="lg" fixed="top">
+        <Container>
           <Link to="/" className="navbar-brand">
             Happy Coding
           </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarResponsive"
-            aria-controls="navbarResponsive"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-        </div>
-      </nav>
+          {isLoggedIn() ? (
+            <Link to="/logout">Logout</Link>
+          ) : (
+            <Link to="/login">login</Link>
+          )}
+        </Container>
+      </Navbar>
     );
   }
 }

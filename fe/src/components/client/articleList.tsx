@@ -1,5 +1,5 @@
 import React from "react";
-import Axios from "axios";
+import axios from "../../utils/axios";
 import { ArticleComponent } from "./article";
 import { Article, VisibleStatus, PublishStatus } from "../../models/article";
 import {
@@ -9,6 +9,7 @@ import {
 } from "../../utils/articleUtils";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
+import { CardColumns } from "react-bootstrap";
 
 @observer
 export class ArticleList extends React.Component {
@@ -16,7 +17,7 @@ export class ArticleList extends React.Component {
   articles: Article[] = [];
 
   async componentDidMount() {
-    let result = await Axios.get(`${process.env.REACT_APP_API_URL_ARTICLE}`);
+    let result = await axios.get(`${process.env.REACT_APP_API_URL_ARTICLE}`);
 
     this.articles = result.data;
   }
@@ -64,11 +65,11 @@ export class ArticleList extends React.Component {
     return (
       <div>
         <h5 className="my-4">{listTitle}</h5>
-        <div className="card-columns">
+        <CardColumns>
           {articles.map((a: Article) => (
             <ArticleComponent key={a._id} article={a} />
           ))}
-        </div>
+        </CardColumns>
       </div>
     );
   }

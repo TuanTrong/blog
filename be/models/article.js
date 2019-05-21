@@ -1,6 +1,6 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const PublishStatus = {
   Draft: "Draft",
@@ -14,7 +14,7 @@ const VisibleStatus = {
   Docked: "Docked"
 };
 
-var articleSchema = new Schema({
+const articleSchema = new Schema({
   title: String,
   image: String,
   shortContent: String,
@@ -29,6 +29,6 @@ var articleSchema = new Schema({
   createDate: Date
 });
 
-var Article = mongoose.model("Article", articleSchema);
+const Article = mongoose.model("Article", articleSchema);
 
 module.exports = Article;

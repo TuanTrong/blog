@@ -1,19 +1,29 @@
-var express = require("express");
-var articleController = require("../controllers/article");
+const express = require("express");
+const passport = require("passport");
+const articleController = require("../controllers/article");
 
-var router = express.Router({
+const router = express.Router({
   mergeParams: true
 });
 
 router
   .route("/")
   .get(articleController.getAllArticle)
-  .post(articleController.insertArticle);
+  .post(
+    passport.authenticate("jwt", { session: false }),
+    articleController.insertArticle
+  );
 
 router
   .route("/:id")
   .get(articleController.findArticleById)
-  .put(articleController.updateArticleById)
-  .delete(articleController.deleteArticleById);
+  .put(
+    passport.authenticate("jwt", { session: false }),
+    articleController.updateArticleById
+  )
+  .delete(
+    passport.authenticate("jwt", { session: false }),
+    articleController.deleteArticleById
+  );
 
 module.exports = router;

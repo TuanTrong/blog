@@ -1,31 +1,35 @@
-var express = require("express");
-var path = require("path");
-var bodyParser = require("body-parser");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var cors = require("cors");
-var mongoose = require("mongoose");
-var dotenv = require("dotenv");
+const express = require("express");
+const bodyParser = require("body-parser");
+const logger = require("morgan");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const passport = require("passport");
 
-var articleRouter = require("./routes/article");
-var categoryRouter = require("./routes/category");
-var seedDb = require("./controllers/seedDb");
+const articleRouter = require("./routes/article");
+const categoryRouter = require("./routes/category");
+const userRouter = require("./routes/user");
+const tokenRouter = require("./routes/token");
+const seedDb = require("./controllers/seedDb");
 
 dotenv.config();
 
-var app = express();
+const app = express();
 
 app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
+
+app.use(passport.initialize());
+require("./config/passport");
 
 app.use("/articles", articleRouter);
 app.use("/categories", categoryRouter);
+app.use("/users", userRouter);
+app.use("/tokens", tokenRouter);
 
 mongoose
   .connect(process.env.MONGOLAB_URI, { useNewUrlParser: true })

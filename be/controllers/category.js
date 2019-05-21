@@ -1,6 +1,6 @@
 const Category = require("../models/category");
 const Article = require("../models/article");
-var ObjectId = require("mongodb").ObjectID;
+const ObjectId = require("mongodb").ObjectID;
 
 function getAllCategory(req, res, next) {
   Category.find((err, categories) => {
@@ -27,7 +27,7 @@ function findCategoryById(req, res, next) {
 }
 
 function insertCategory(req, res, next) {
-  var category = new Category({
+  const category = new Category({
     title: req.body.title,
     parentId: req.body.parentId
   });

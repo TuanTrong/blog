@@ -1,11 +1,12 @@
 import React from "react";
-import Axios from "axios";
+import axios from "../../utils/axios";
 import MuiTreeView from "material-ui-treeview";
 import { Category } from "../../models/category";
 import { toTree } from "../../utils/categoryUtils";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
 import { Redirect } from "react-router";
+import { Col, Row } from "react-bootstrap";
 
 @observer
 export class CategoryComponent extends React.Component {
@@ -16,7 +17,7 @@ export class CategoryComponent extends React.Component {
   selectedCategoryId: string = "";
 
   async componentDidMount() {
-    var result = await Axios.get(`${process.env.REACT_APP_API_URL_CATEGORY}`);
+    var result = await axios.get(`${process.env.REACT_APP_API_URL_CATEGORY}`);
 
     this.categories = result.data;
   }
@@ -31,19 +32,19 @@ export class CategoryComponent extends React.Component {
       );
 
     return (
-      <div className="col-md-3">
+      <Col md={{ span: 3 }}>
         <div className="my-4">
           <h5>Categories</h5>
-          <div className="row">
+          <Row>
             <MuiTreeView
               tree={toTree(this.categories) as any}
               onLeafClick={category =>
                 (this.selectedCategoryId = String(category.id))
               }
             />
-          </div>
+          </Row>
         </div>
-      </div>
+      </Col>
     );
   }
 

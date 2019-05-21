@@ -5,24 +5,26 @@ import { ClientLayout } from "./components/client/clientLayout";
 import { AdminLayout } from "./components/admin/adminLayout";
 import { Navigation } from "./components/navigation";
 import { Footer } from "./components/footer";
+import { Container } from "react-bootstrap";
+import { LoginForm } from "./components/login";
+import { PrivateRoute } from "./components/admin/privateRoute";
 
 export class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
         {process.env.NODE_ENV === "development" && <DevTools />}
-        <div>
-          <Navigation />
+        <Navigation />
 
-          <div className="container pb-2">
-            <Switch>
-              <Route path="/admin" component={AdminLayout} />
-              <Route path="/" component={ClientLayout} />
-            </Switch>
-          </div>
+        <Container className="pb-2">
+          <Switch>
+            <PrivateRoute path="/admin" component={AdminLayout} />
+            <Route path="/login" component={LoginForm} />
+            <Route path="/" component={ClientLayout} />
+          </Switch>
+        </Container>
 
-          <Footer />
-        </div>
+        <Footer />
       </BrowserRouter>
     );
   }

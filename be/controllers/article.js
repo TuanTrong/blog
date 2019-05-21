@@ -1,5 +1,5 @@
 const Article = require("../models/article");
-var ObjectId = require("mongodb").ObjectID;
+const ObjectId = require("mongodb").ObjectID;
 
 function getAllArticle(req, res, next) {
   Article.find((err, articles) => {
@@ -18,7 +18,7 @@ function findArticleById(req, res, next) {
 }
 
 function insertArticle(req, res, next) {
-  var article = new Article({
+  const article = new Article({
     title: req.body.title,
     image: req.body.image,
     shortContent: req.body.shortContent,

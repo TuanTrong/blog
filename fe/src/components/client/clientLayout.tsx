@@ -4,11 +4,12 @@ import { Switch, Route } from "react-router";
 import { ArticleList } from "./articleList";
 import { ArticleDetailComponent } from "./articleDetail";
 import { ArticleListByCategory } from "./articleListByCategory";
+import { Row } from "react-bootstrap";
 
 export class ClientLayout extends React.Component {
   render() {
     return (
-      <div className="row">
+      <Row>
         <CategoryComponent />
         <Switch>
           <Route
@@ -21,7 +22,7 @@ export class ClientLayout extends React.Component {
           />
           <Route path="/" component={ArticleList} />
         </Switch>
-      </div>
+      </Row>
     );
   }
 }

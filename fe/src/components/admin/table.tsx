@@ -1,5 +1,5 @@
 import React from "react";
-import Axios from "axios";
+import axios from "../../utils/axios";
 import { observable } from "mobx";
 import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
@@ -10,6 +10,7 @@ import {
   SelectRow
 } from "react-bootstrap-table";
 import { BaseModel } from "../../models/base";
+import { Col } from "react-bootstrap";
 
 export interface IAdminTableProps {
   tableHeaderLabel: string;
@@ -67,14 +68,14 @@ export class AdminTable extends React.Component<IAdminTableProps> {
   };
 
   async componentDidMount() {
-    let result = await Axios.get(this.props.apiUrl);
+    let result = await axios.get(this.props.apiUrl);
 
     this.items = result.data;
   }
 
   render() {
     return (
-      <div className="col-md-12">
+      <Col md={{ span: 12 }}>
         <h2>{this.props.tableHeaderLabel}</h2>
         <BootstrapTable
           data={this.items}
@@ -91,7 +92,7 @@ export class AdminTable extends React.Component<IAdminTableProps> {
           </TableHeaderColumn>
           {this.props.getHeaders(this.items)}
         </BootstrapTable>
-      </div>
+      </Col>
     );
   }
 
@@ -104,7 +105,7 @@ export class AdminTable extends React.Component<IAdminTableProps> {
     )
       return;
 
-    let result = await Axios.delete(
+    let result = await axios.delete(
       `${this.props.apiUrl}/${this.selectedItems._id}`
     );
 

@@ -1,6 +1,13 @@
 import React from "react";
-import Axios from "axios";
-import { Form, Button, DropdownButton, Dropdown } from "react-bootstrap";
+import axios from "../../utils/axios";
+import {
+  Form,
+  Button,
+  DropdownButton,
+  Dropdown,
+  Col,
+  Alert
+} from "react-bootstrap";
 import { RouteComponentProps } from "react-router-dom";
 import { Category } from "../../models/category";
 import { observer } from "mobx-react";
@@ -40,9 +47,9 @@ export class CategoryForm extends React.Component<
       };
 
       if (this.isCreating) {
-        await Axios.post(`${process.env.REACT_APP_API_URL_CATEGORY}`, data);
+        await axios.post(`${process.env.REACT_APP_API_URL_CATEGORY}`, data);
       } else {
-        await Axios.put(
+        await axios.put(
           `${process.env.REACT_APP_API_URL_CATEGORY}/${
             this.props.match.params.categoryId
           }`,
@@ -56,13 +63,13 @@ export class CategoryForm extends React.Component<
   }
 
   async componentDidMount() {
-    let categories = await Axios.get(
+    let categories = await axios.get(
       `${process.env.REACT_APP_API_URL_CATEGORY}`
     );
     this.categories = categories.data;
 
     if (!this.isCreating) {
-      let categoryResult = await Axios.get(
+      let categoryResult = await axios.get(
         `${process.env.REACT_APP_API_URL_CATEGORY}/${
           this.props.match.params.categoryId
         }`
@@ -82,28 +89,14 @@ export class CategoryForm extends React.Component<
 
   render() {
     return (
-      <div className="col-md-12">
+      <Col md={{ span: 12 }}>
         <h1 className="mt-4">
           {this.isCreating ? "Create new Category" : "Edit Category"}
         </h1>
         <hr />
-        {this.saved && (
-          <div
-            className="alert alert-success alert-dismissible fade show"
-            role="alert"
-          >
-            <strong>Category saved successfully.</strong>
-            <button
-              type="button"
-              className="close"
-              data-dismiss="alert"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        )}
-
+        <Alert variant="success" show={this.saved}>
+          <strong>Category saved successfully.</strong>
+        </Alert>
         <Form
           noValidate
           validated={this.validated}
@@ -148,7 +141,7 @@ export class CategoryForm extends React.Component<
           )}
           <Button type="submit">{this.isCreating ? "Create" : "Save"}</Button>
         </Form>
-      </div>
+      </Col>
     );
   }
 }

@@ -1,6 +1,12 @@
 import React from "react";
-import Axios from "axios";
-import { Form, Button, DropdownButton, Dropdown } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  DropdownButton,
+  Dropdown,
+  Col,
+  Alert
+} from "react-bootstrap";
 import { PublishStatus, VisibleStatus } from "../../models/article";
 import { RouteComponentProps } from "react-router-dom";
 import { enumToArray } from "../../utils/enumHelper";
@@ -15,6 +21,7 @@ import { Editor } from "react-draft-wysiwyg";
 import { Category } from "../../models/category";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
+import axios from "../../utils/axios";
 
 export interface IArticleFormProps {
   articleId: string;
@@ -65,9 +72,9 @@ export class ArticleForm extends React.Component<
       };
 
       if (this.isCreating) {
-        await Axios.post(`${process.env.REACT_APP_API_URL_ARTICLE}`, data);
+        await axios.post(`${process.env.REACT_APP_API_URL_ARTICLE}`, data);
       } else {
-        await Axios.put(
+        await axios.put(
           `${process.env.REACT_APP_API_URL_ARTICLE}/${
             this.props.match.params.articleId
           }`,
@@ -81,13 +88,13 @@ export class ArticleForm extends React.Component<
   }
 
   async componentDidMount() {
-    let categories = await Axios.get(
+    let categories = await axios.get(
       `${process.env.REACT_APP_API_URL_CATEGORY}`
     );
     this.categories = categories.data;
 
     if (!this.isCreating) {
-      let articleResult = await Axios.get(
+      let articleResult = await axios.get(
         `${process.env.REACT_APP_API_URL_ARTICLE}/${
           this.props.match.params.articleId
         }`
@@ -117,27 +124,15 @@ export class ArticleForm extends React.Component<
 
   render() {
     return (
-      <div className="col-md-12">
+      <Col md={{ span: 12 }}>
         <h1 className="mt-4">
           {this.isCreating ? "Create new Article" : "Edit Article"}
         </h1>
         <hr />
-        {this.saved && (
-          <div
-            className="alert alert-success alert-dismissible fade show"
-            role="alert"
-          >
-            <strong>Article saved successfully.</strong>
-            <button
-              type="button"
-              className="close"
-              data-dismiss="alert"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        )}
+
+        <Alert variant="success" show={this.saved}>
+          <strong>Article saved successfully.</strong>
+        </Alert>
 
         <Form
           noValidate
@@ -286,7 +281,7 @@ export class ArticleForm extends React.Component<
           </Form.Group>
           <Button type="submit">{this.isCreating ? "Create" : "Save"}</Button>
         </Form>
-      </div>
+      </Col>
     );
   }
 }

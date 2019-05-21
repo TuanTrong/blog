@@ -3,7 +3,7 @@ const Article = require("../models/article");
 
 module.exports = app => {
   app.get("/api/seedDb", (req, res) => {
-    var categories = [
+    const categories = [
       {
         _id: "5cd67e886a2d062fe06d0144",
         title: "Web Design",
@@ -41,9 +41,9 @@ module.exports = app => {
       }
     ];
 
-    var articles = [
+    const articles = [
       {
-        title: "JavaScript Functions as JavaScript Variables",
+        title: "JavaScript Functions as JavaScript constiables",
         image: "https://picsum.photos/750/300?random=1",
         shortContent: "Function Basics. Level Set!",
         tags: ["javascript", "web"],
@@ -120,7 +120,7 @@ module.exports = app => {
         createDate: new Date(2012, 5, 2)
       },
       {
-        title: "JavaScript Functions as JavaScript Variables",
+        title: "JavaScript Functions as JavaScript constiables",
         image: "https://picsum.photos/750/300?random=7",
         shortContent: "Function Basics. Level Set!",
         tags: ["web", "front-end"],
@@ -197,7 +197,7 @@ module.exports = app => {
         createDate: new Date(2012, 5, 2)
       },
       {
-        title: "JavaScript Functions as JavaScript Variables",
+        title: "JavaScript Functions as JavaScript constiables",
         image: "https://picsum.photos/750/300?random=13",
         shortContent: "Function Basics. Level Set!",
         tags: ["web", "front-end"],
@@ -274,7 +274,7 @@ module.exports = app => {
         createDate: new Date(2012, 5, 2)
       },
       {
-        title: "JavaScript Functions as JavaScript Variables",
+        title: "JavaScript Functions as JavaScript constiables",
         image: "https://picsum.photos/750/300?random=19",
         shortContent: "Function Basics. Level Set!",
         tags: ["javascript", "web"],
