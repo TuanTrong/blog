@@ -5,6 +5,7 @@ import { observer } from "mobx-react";
 import { observable } from "mobx";
 import { RouteComponentProps } from "react-router-dom";
 import { ArticleList } from "./articleList";
+import { sortArticle } from "../../utils/articleUtils";
 
 export interface IArticleListByCategoryProps {
   categoryId: string;
@@ -47,6 +48,6 @@ export class ArticleListByCategory extends React.Component<
         this.props.match.params.categoryId
       }/articles`
     );
-    this.articles = result.data;
+    this.articles = sortArticle(result.data, article => article.createDate);
   }
 }

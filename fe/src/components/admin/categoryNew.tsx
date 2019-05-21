@@ -1,7 +1,7 @@
 import React from "react";
 import Axios from "axios";
 import { Form, Button, DropdownButton, Dropdown } from "react-bootstrap";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import { Category } from "../../models/category";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
@@ -85,12 +85,6 @@ export class CategoryForm extends React.Component<
       <div className="col-md-12">
         <h1 className="mt-4">
           {this.isCreating ? "Create new Category" : "Edit Category"}
-          <Link
-            to={"/admin"}
-            className="btn btn-light float-right align-bottom"
-          >
-            &lArr; Back
-          </Link>
         </h1>
         <hr />
         {this.saved && (

@@ -2,7 +2,7 @@ import React from "react";
 import Axios from "axios";
 import { Form, Button, DropdownButton, Dropdown } from "react-bootstrap";
 import { PublishStatus, VisibleStatus } from "../../models/article";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import { enumToArray } from "../../utils/enumHelper";
 import { getRandomImage } from "../../utils/random";
 import {
@@ -120,12 +120,6 @@ export class ArticleForm extends React.Component<
       <div className="col-md-12">
         <h1 className="mt-4">
           {this.isCreating ? "Create new Article" : "Edit Article"}
-          <Link
-            to={"/admin"}
-            className="btn btn-light float-right align-bottom"
-          >
-            &lArr; Back
-          </Link>
         </h1>
         <hr />
         {this.saved && (
