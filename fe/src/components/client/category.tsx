@@ -27,7 +27,6 @@ export class CategoryComponent extends React.Component {
         <Redirect
           push={true}
           to={`/categories/show/${this.selectedCategoryId}`}
-          key={this.selectedCategoryId}
         />
       );
 

@@ -48,14 +48,14 @@ export class ArticleList extends React.Component {
     return (
       <div className="col-md-9">
         <h3 className="my-4">{process.env.REACT_APP_HEADER_TITLE}</h3>
-        {this.renderArticleList("Docked", dockedArticles)}
-        {this.renderArticleList("Hot", hotArticles)}
-        {this.renderArticleList("Most Viewed", mostViewedArticles)}
+        {ArticleList.renderArticleList("Docked", dockedArticles)}
+        {ArticleList.renderArticleList("Hot", hotArticles)}
+        {ArticleList.renderArticleList("Most Viewed", mostViewedArticles)}
       </div>
     );
   }
 
-  renderArticleList(
+  public static renderArticleList(
     listTitle: string,
     articles: Article[]
   ): JSX.Element | undefined {

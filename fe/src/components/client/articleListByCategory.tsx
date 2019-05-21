@@ -1,10 +1,10 @@
 import React from "react";
 import Axios from "axios";
-import { ArticleComponent } from "./article";
 import { Article } from "../../models/article";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
 import { RouteComponentProps } from "react-router-dom";
+import { ArticleList } from "./articleList";
 
 export interface IArticleListByCategoryProps {
   categoryId: string;
@@ -18,25 +18,35 @@ export class ArticleListByCategory extends React.Component<
   articles: Article[] = [];
 
   async componentDidMount() {
-    let result = await Axios.get(
-      `${process.env.REACT_APP_API_URL_CATEGORY}/${
-        this.props.match.params.categoryId
-      }/articles`
-    );
+    await this.loadArticlesByCategory();
+  }
 
-    this.articles = result.data;
+  async componentWillReceiveProps(
+    nextProps: RouteComponentProps<IArticleListByCategoryProps>
+  ) {
+    const isNewCategory =
+      this.props.match.params.categoryId !== nextProps.match.params.categoryId;
+
+    if (isNewCategory) {
+      this.props.match.params.categoryId = nextProps.match.params.categoryId;
+      await this.loadArticlesByCategory();
+    }
   }
 
   render() {
     return (
       <div className="col-md-9">
-        <h5 className="my-4">Articles</h5>
-        <div className="card-columns">
-          {this.articles.map((a: Article) => (
-            <ArticleComponent key={a._id} article={a} />
-          ))}
-        </div>
+        {ArticleList.renderArticleList("Articles by category", this.articles)}
       </div>
     );
+  }
+
+  private async loadArticlesByCategory() {
+    let result = await Axios.get(
+      `${process.env.REACT_APP_API_URL_CATEGORY}/${
+        this.props.match.params.categoryId
+      }/articles`
+    );
+    this.articles = result.data;
   }
 }
