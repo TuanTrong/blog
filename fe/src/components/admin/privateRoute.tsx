@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router";
 import { observer } from "mobx-react";
-import userStore from "../../utils/user";
+import userStore from "../../store/user";
 
 @observer
 export class PrivateRoute extends Route {

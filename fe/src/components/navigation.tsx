@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Container } from "react-bootstrap";
-import userStore from "../utils/user";
+import userStore from "../store/user";
 import { observer } from "mobx-react";
 
 @observer

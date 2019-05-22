@@ -4,7 +4,7 @@ import { Form, Button, Col, Row } from "react-bootstrap";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
 import { Redirect } from "react-router";
-import userStore from "../utils/user";
+import userStore from "../store/user";
 
 @observer
 export class LoginForm extends React.Component {

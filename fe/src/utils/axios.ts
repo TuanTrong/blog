@@ -1,5 +1,5 @@
 import Axios from "axios";
-import userStore from "./user";
+import userStore from "../store/user";
 
 export default Axios.create({
   headers: {
