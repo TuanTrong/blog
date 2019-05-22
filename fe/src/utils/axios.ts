@@ -1,8 +1,12 @@
 import Axios from "axios";
-import { loadToken } from "./cookie";
+import userStore from "./cookie";
 
 export default Axios.create({
   headers: {
-    Authorization: `Bearer ${loadToken()}`
+    Authorization: {
+      toString() {
+        return `Bearer ${userStore.token}`;
+      }
+    }
   }
 });

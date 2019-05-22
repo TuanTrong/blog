@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Container } from "react-bootstrap";
-import { isLoggedIn } from "../utils/cookie";
+import userStore from "../utils/cookie";
+import { observer } from "mobx-react";
 
+@observer
 export class Navigation extends React.Component {
   render() {
     return (
@@ -11,8 +13,10 @@ export class Navigation extends React.Component {
           <Link to="/" className="navbar-brand">
             Happy Coding
           </Link>
-          {isLoggedIn() ? (
-            <Link to="/logout">Logout</Link>
+          {userStore.isLoggedIn() ? (
+            <Link to="/" onClick={() => userStore.logOut()}>
+              Logout
+            </Link>
           ) : (
             <Link to="/login">login</Link>
           )}

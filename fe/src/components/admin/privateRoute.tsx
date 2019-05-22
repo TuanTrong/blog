@@ -1,9 +1,15 @@
 import React from "react";
 import { Route, Redirect } from "react-router";
-import { isLoggedIn } from "../../utils/cookie";
+import { observer } from "mobx-react";
+import userStore from "../../utils/cookie";
 
+@observer
 export class PrivateRoute extends Route {
   render() {
-    return isLoggedIn() ? <Route {...this.props} /> : <Redirect to="/login" />;
+    return userStore.isLoggedIn() ? (
+      <Route {...this.props} />
+    ) : (
+      <Redirect to="/login" />
+    );
   }
 }

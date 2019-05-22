@@ -3,8 +3,8 @@ import axios from "../utils/axios";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
-import { saveToken, isLoggedIn } from "../utils/cookie";
 import { Redirect } from "react-router";
+import userStore from "../utils/cookie";
 
 @observer
 export class LoginForm extends React.Component {
@@ -12,7 +12,6 @@ export class LoginForm extends React.Component {
   @observable password: string = "";
 
   @observable validated: boolean = false;
-  @observable isLoginSuccessfully: boolean = false;
 
   async handleSubmit(event: any) {
     event.preventDefault();
@@ -27,19 +26,19 @@ export class LoginForm extends React.Component {
         password: this.password
       });
 
-      saveToken(result.data);
-      this.isLoginSuccessfully = true;
+      userStore.token = result.data;
 
       window.scrollTo(0, 0);
     }
   }
 
   render() {
-    if (isLoggedIn()) return <Redirect to="/admin" />;
+    if (userStore.isLoggedIn()) return <Redirect to="/admin" />;
 
     return (
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
+          <h3 className="my-4">Login</h3>
           <Form
             noValidate
             validated={this.validated}
