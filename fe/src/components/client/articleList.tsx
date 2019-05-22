@@ -23,7 +23,7 @@ export class ArticleList extends React.Component {
   }
 
   render() {
-    if (!this.articles.length) return <div>No articles available.</div>;
+    if (!this.articles.length) return <div>Loading articles.....</div>;
 
     const publishedArticles = getArticlesByPublishedStatus(
       this.articles,
