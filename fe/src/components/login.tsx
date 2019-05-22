@@ -5,6 +5,7 @@ import { observer } from "mobx-react";
 import { observable } from "mobx";
 import { Redirect } from "react-router";
 import userStore from "../store/user";
+import { scrollToTop } from "../utils/scrollTop";
 
 @observer
 export class LoginForm extends React.Component {
@@ -28,7 +29,7 @@ export class LoginForm extends React.Component {
 
       userStore.token = result.data;
 
-      window.scrollTo(0, 0);
+      scrollToTop();
     }
   }
 

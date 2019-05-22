@@ -13,6 +13,7 @@ import { Category } from "../../models/category";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
 import { findParentCategory } from "../../utils/categoryUtils";
+import { scrollToTop } from "../../utils/scrollTop";
 
 export interface ICategoryFormProps {
   categoryId: string;
@@ -58,7 +59,7 @@ export class CategoryForm extends React.Component<
       }
 
       this.saved = true;
-      window.scrollTo(0, 0);
+      scrollToTop();
     }
   }
 

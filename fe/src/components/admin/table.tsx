@@ -84,7 +84,7 @@ export class AdminTable extends React.Component<IAdminTableProps> {
           pagination
           hover
         >
-          <TableHeaderColumn dataField="_id" isKey={true}>
+          <TableHeaderColumn dataField="_id" isKey={true} hidden>
             ID
           </TableHeaderColumn>
           <TableHeaderColumn dataField="title" dataSort={true}>

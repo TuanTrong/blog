@@ -49,6 +49,7 @@ function updateArticleById(req, res, next) {
       shortContent: req.body.shortContent,
       detailContent: req.body.detailContent,
       tags: req.body.tags,
+      author: req.body.author,
       publishStatus: req.body.publishStatus,
       visibleStatus: req.body.visibleStatus,
 

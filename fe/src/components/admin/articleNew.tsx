@@ -22,6 +22,7 @@ import { Category } from "../../models/category";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
 import axios from "../../utils/axios";
+import { scrollToTop } from "../../utils/scrollTop";
 
 export interface IArticleFormProps {
   articleId: string;
@@ -57,19 +58,7 @@ export class ArticleForm extends React.Component<
 
       this.validated = true;
     } else {
-      const data = {
-        title: this.title,
-        image: this.image,
-        shortContent: this.shortContent,
-        detailContent: JSON.stringify(
-          convertToRaw(this.editorState.getCurrentContent())
-        ),
-        tags: String(this.tags).split(","),
-        author: this.author,
-        publishStatus: this.publishStatus,
-        visibleStatus: this.visibleStatus,
-        categoryId: this.categoryId
-      };
+      const data = this.createArticleData();
 
       if (this.isCreating) {
         await axios.post(`${process.env.REACT_APP_API_URL_ARTICLE}`, data);
@@ -83,7 +72,7 @@ export class ArticleForm extends React.Component<
       }
 
       this.saved = true;
-      window.scrollTo(0, 0);
+      scrollToTop();
     }
   }
 
@@ -94,31 +83,9 @@ export class ArticleForm extends React.Component<
     this.categories = categories.data;
 
     if (!this.isCreating) {
-      let articleResult = await axios.get(
-        `${process.env.REACT_APP_API_URL_ARTICLE}/${
-          this.props.match.params.articleId
-        }`
-      );
-
-      this.title = articleResult.data.title;
-      this.image = articleResult.data.image;
-      this.shortContent = articleResult.data.shortContent;
-      if (articleResult.data.detailContent)
-        this.editorState = EditorState.createWithContent(
-          convertFromRaw(JSON.parse(articleResult.data.detailContent))
-        );
-      this.tags = articleResult.data.tags.join();
-      this.author = articleResult.data.author;
-      this.publishStatus = articleResult.data.publishStatus;
-      this.visibleStatus = articleResult.data.visibleStatus;
-      this.categoryId = articleResult.data.categoryId;
-      this.selectedCategory = this.categories.find(
-        category => category._id === this.categoryId
-      )!.title;
+      await this.loadArticleById();
     } else {
-      this.image = getRandomImage();
-      this.categoryId = this.categories[0]._id;
-      this.selectedCategory = this.categories[0].title;
+      this.setNewArticleValue();
     }
   }
 
@@ -283,5 +250,50 @@ export class ArticleForm extends React.Component<
         </Form>
       </Col>
     );
+  }
+
+  private async loadArticleById() {
+    let articleResult = await axios.get(
+      `${process.env.REACT_APP_API_URL_ARTICLE}/${
+        this.props.match.params.articleId
+      }`
+    );
+    this.title = articleResult.data.title;
+    this.image = articleResult.data.image;
+    this.shortContent = articleResult.data.shortContent;
+    if (articleResult.data.detailContent)
+      this.editorState = EditorState.createWithContent(
+        convertFromRaw(JSON.parse(articleResult.data.detailContent))
+      );
+    this.tags = articleResult.data.tags.join();
+    this.author = articleResult.data.author;
+    this.publishStatus = articleResult.data.publishStatus;
+    this.visibleStatus = articleResult.data.visibleStatus;
+    this.categoryId = articleResult.data.categoryId;
+    this.selectedCategory = this.categories.find(
+      category => category._id === this.categoryId
+    )!.title;
+  }
+
+  private setNewArticleValue() {
+    this.image = getRandomImage();
+    this.categoryId = this.categories[0]._id;
+    this.selectedCategory = this.categories[0].title;
+  }
+
+  private createArticleData() {
+    return {
+      title: this.title,
+      image: this.image,
+      shortContent: this.shortContent,
+      detailContent: JSON.stringify(
+        convertToRaw(this.editorState.getCurrentContent())
+      ),
+      tags: String(this.tags).split(","),
+      author: this.author,
+      publishStatus: this.publishStatus,
+      visibleStatus: this.visibleStatus,
+      categoryId: this.categoryId
+    };
   }
 }
