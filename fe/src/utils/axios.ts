@@ -1,5 +1,5 @@
 import Axios from "axios";
-import userStore from "./cookie";
+import userStore from "./user";
 
 export default Axios.create({
   headers: {
