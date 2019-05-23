@@ -29,16 +29,12 @@ export class ArticleList extends React.Component {
       this.articles,
       PublishStatus.Published
     );
-    const articlesSortedByDate = sortArticle(
-      publishedArticles,
-      article => article.createDate
-    );
     const dockedArticles = getArticlesByVisibleStatus(
-      articlesSortedByDate,
+      publishedArticles,
       VisibleStatus.Docked
     );
     const hotArticles = getArticlesByVisibleStatus(
-      articlesSortedByDate,
+      publishedArticles,
       VisibleStatus.Hot
     );
     const mostViewedArticles = sortArticle(

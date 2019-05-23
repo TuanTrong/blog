@@ -2,11 +2,10 @@ const Article = require("../models/article");
 const ObjectId = require("mongodb").ObjectID;
 
 function getAllArticle(req, res, next) {
-  Article.find((err, articles) => {
-    if (err) next(err);
-
-    res.send(articles);
-  });
+  Article.find()
+    .sort({ createDate: -1 })
+    .then(articles => res.send(articles))
+    .catch(err => next(err));
 }
 
 function findArticleById(req, res, next) {

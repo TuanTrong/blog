@@ -27,8 +27,6 @@ export class AdminTable extends React.Component<IAdminTableProps> {
   selectedItems: BaseModel = new BaseModel();
 
   tableOption: Options = {
-    defaultSortName: "title",
-    defaultSortOrder: "desc",
     onRowClick: (row: BaseModel) => {
       this.selectedItems = row;
     },
