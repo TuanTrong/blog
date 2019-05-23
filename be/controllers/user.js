@@ -35,7 +35,9 @@ function register(req, res, next) {
   });
 
   user.save((err, user) => {
-    if (err) next(err);
+    if (err) {
+      return next(err);
+    }
 
     res.status(200).send({ message: "user created" });
   });

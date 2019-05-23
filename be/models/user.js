@@ -6,8 +6,14 @@ const Schema = mongoose.Schema;
 const BCRYPT_SALT_ROUNDS = 12;
 
 const userSchema = new Schema({
-  username: String,
-  password: String
+  username: {
+    type: String,
+    required: [true, "Username is mandatory"]
+  },
+  password: {
+    type: String,
+    required: [true, "Password is mandatory"]
+  }
 });
 
 userSchema.pre("save", function(next) {
@@ -16,6 +22,4 @@ userSchema.pre("save", function(next) {
   next();
 });
 
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
+module.exports = mongoose.model("User", userSchema);

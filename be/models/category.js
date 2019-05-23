@@ -3,10 +3,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const categorySchema = new Schema({
-  title: String,
+  title: {
+    type: String,
+    required: [true, "Title is mandatory"]
+  },
   parentId: String
 });
 
-const Category = mongoose.model("Category", categorySchema);
-
-module.exports = Category;
+module.exports = mongoose.model("Category", categorySchema);

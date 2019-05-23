@@ -15,20 +15,38 @@ const VisibleStatus = {
 };
 
 const articleSchema = new Schema({
-  title: String,
-  image: String,
-  shortContent: String,
+  title: {
+    type: String,
+    required: [true, "Title is mandatory"]
+  },
+  image: {
+    type: String,
+    required: [true, "Image is mandatory"]
+  },
+  shortContent: {
+    type: String,
+    required: [true, "Short content is mandatory"]
+  },
   detailContent: String,
-  tags: [],
+  tags: [String],
   author: String,
-  publishStatus: String,
-  visibleStatus: String,
-  viewCount: Number,
-
+  publishStatus: {
+    type: String,
+    enum: Object.values(PublishStatus)
+  },
+  visibleStatus: {
+    type: String,
+    enum: Object.values(VisibleStatus)
+  },
+  viewCount: {
+    type: Number,
+    default: 0
+  },
   categoryId: String,
-  createDate: Date
+  createDate: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-const Article = mongoose.model("Article", articleSchema);
-
-module.exports = Article;
+module.exports = mongoose.model("Article", articleSchema);

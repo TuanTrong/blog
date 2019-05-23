@@ -41,8 +41,8 @@ mongoose
   });
 
 app.use((err, req, res, next) => {
-  console.error(`ERROR STACK: ${err.stack}`);
-  res.status(500).send("Something went wrong.");
+  console.error(`ERROR: ${err}`);
+  res.status(500).send(err.message);
 });
 
 module.exports = app;

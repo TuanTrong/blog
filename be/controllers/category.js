@@ -4,7 +4,9 @@ const ObjectId = require("mongodb").ObjectID;
 
 function getAllCategory(req, res, next) {
   Category.find((err, categories) => {
-    if (err) next(err);
+    if (err) {
+      return next(err);
+    }
 
     res.send(categories);
   });
@@ -12,7 +14,9 @@ function getAllCategory(req, res, next) {
 
 function getAllArticleByCategory(req, res, next) {
   Article.find({ categoryId: req.params.id }, (err, articles) => {
-    if (err) next(err);
+    if (err) {
+      return next(err);
+    }
 
     res.send(articles);
   });
@@ -33,7 +37,9 @@ function insertCategory(req, res, next) {
   });
 
   category.save(err => {
-    if (err) next(err);
+    if (err) {
+      return next(err);
+    }
 
     res.send("inserted");
   });
@@ -54,7 +60,9 @@ function updateCategoryById(req, res) {
       categoryId: req.body.categoryId
     },
     err => {
-      if (err) next(err);
+      if (err) {
+        return next(err);
+      }
 
       res.send("updated");
     }
@@ -63,7 +71,9 @@ function updateCategoryById(req, res) {
 
 function deleteCategoryById(req, res, next) {
   Category.findOneAndRemove({ _id: ObjectId(req.params.id) }, err => {
-    if (err) next(err);
+    if (err) {
+      return next(err);
+    }
 
     res.send("deleted");
   });

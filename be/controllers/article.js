@@ -26,14 +26,14 @@ function insertArticle(req, res, next) {
     author: req.body.author,
     publishStatus: req.body.publishStatus,
     visibleStatus: req.body.visibleStatus,
-    viewCount: 0,
 
-    categoryId: req.body.categoryId,
-    createDate: new Date()
+    categoryId: req.body.categoryId
   });
 
   article.save(err => {
-    if (err) next(err);
+    if (err) {
+      return next(err);
+    }
 
     res.send("inserted");
   });
@@ -55,7 +55,9 @@ function updateArticleById(req, res, next) {
       categoryId: req.body.categoryId
     },
     err => {
-      if (err) next(err);
+      if (err) {
+        return next(err);
+      }
 
       res.send("updated");
     }
@@ -64,7 +66,9 @@ function updateArticleById(req, res, next) {
 
 function deleteArticleById(req, res) {
   Article.findOneAndDelete({ _id: ObjectId(req.params.id) }, err => {
-    if (err) next(err);
+    if (err) {
+      return next(err);
+    }
 
     res.send("deleted");
   });
