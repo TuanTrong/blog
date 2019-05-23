@@ -1,12 +1,12 @@
-import Axios from "axios";
+import Axios, { AxiosRequestConfig } from "axios";
 import userStore from "../store/user";
 
-export default Axios.create({
-  headers: {
-    Authorization: {
-      toString() {
-        return `Bearer ${userStore.token}`;
-      }
-    }
-  }
+const customAxios = Axios.create();
+
+customAxios.interceptors.request.use((config: AxiosRequestConfig) => {
+  config.headers.Authorization = `Bearer ${userStore.token}`;
+
+  return config;
 });
+
+export default customAxios;
