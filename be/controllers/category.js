@@ -1,14 +1,25 @@
+const redis = require("../config/redis");
 const Category = require("../models/category");
 const Article = require("../models/article");
 const ObjectId = require("mongodb").ObjectID;
 
-function getAllCategory(req, res, next) {
-  Category.find((err, categories) => {
-    if (err) {
-      return next(err);
-    }
+const REDIS_CATEGORIES_KEY = "getAllCategory";
 
-    res.send(categories);
+function getAllCategory(req, res, next) {
+  redis.get(REDIS_CATEGORIES_KEY, (err, categories) => {
+    if (categories) {
+      res.send(JSON.parse(categories));
+    } else {
+      Category.find((err, categories) => {
+        if (err) {
+          return next(err);
+        }
+
+        redis.set(REDIS_CATEGORIES_KEY, JSON.stringify(categories));
+
+        res.send(categories);
+      });
+    }
   });
 }
 
@@ -41,6 +52,7 @@ function insertCategory(req, res, next) {
       return next(err);
     }
 
+    redis.del(REDIS_CATEGORIES_KEY);
     res.send("inserted");
   });
 }

@@ -1,11 +1,24 @@
+const redis = require("../config/redis");
 const Article = require("../models/article");
 const ObjectId = require("mongodb").ObjectID;
 
+const REDIS_ARTICLES_KEY = "getAllArticle";
+
 function getAllArticle(req, res, next) {
-  Article.find()
-    .sort({ createDate: -1 })
-    .then(articles => res.send(articles))
-    .catch(err => next(err));
+  redis.get(REDIS_ARTICLES_KEY, (err, articles) => {
+    if (articles) {
+      res.send(JSON.parse(articles));
+    } else {
+      Article.find()
+        .sort({ createDate: -1 })
+        .then(articles => {
+          redis.set(REDIS_ARTICLES_KEY, JSON.stringify(articles));
+
+          res.send(articles);
+        })
+        .catch(err => next(err));
+    }
+  });
 }
 
 function findArticleById(req, res, next) {
@@ -35,6 +48,7 @@ function insertArticle(req, res, next) {
       return next(err);
     }
 
+    redis.del(REDIS_ARTICLES_KEY);
     res.send("inserted");
   });
 }

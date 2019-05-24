@@ -2,15 +2,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const cors = require("cors");
-const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const passport = require("passport");
 
+const mongoose = require("./config/mongoose");
+const redis = require("./config/redis");
 const articleRouter = require("./routes/article");
 const categoryRouter = require("./routes/category");
 const userRouter = require("./routes/user");
 const tokenRouter = require("./routes/token");
-const seedDb = require("./controllers/seedDb");
 
 dotenv.config();
 
@@ -31,14 +31,8 @@ app.use("/categories", categoryRouter);
 app.use("/users", userRouter);
 app.use("/tokens", tokenRouter);
 
-mongoose
-  .connect(process.env.MONGO_DOCKER_URI, { useNewUrlParser: true })
-  .then(_ => {
-    seedDb(app);
-  })
-  .catch(err => {
-    console.error(`Connection error: ${err}`);
-  });
+mongoose.initialize(app);
+redis;
 
 app.use((err, req, res, next) => {
   console.error(`ERROR: ${err}`);
