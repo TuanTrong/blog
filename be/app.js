@@ -32,7 +32,7 @@ app.use("/users", userRouter);
 app.use("/tokens", tokenRouter);
 
 mongoose
-  .connect(process.env.MONGOLAB_URI, { useNewUrlParser: true })
+  .connect(process.env.MONGO_DOCKER_URI, { useNewUrlParser: true })
   .then(_ => {
     seedDb(app);
   })
