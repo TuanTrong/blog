@@ -1,0 +1,21 @@
+version: "3.1"
+services:
+  database:
+    image: mongo
+    ports: 
+      - "27017:27017"
+  cache:
+    image: redis
+    ports:
+      - "6379:6379"
+  app:
+    image: node
+    volumes:
+      - ./be:/usr/src/app
+      - ./usr/src/app/node_modules
+    command: bash -c "cd /usr/src/app && npm install -g nodemon && npm install && npm start"
+    ports: 
+      - "4000:4000"
+    links:
+      - database:database
+  

@@ -1,7 +1,7 @@
 {
   "semi": true,
   "tabWidth": 4,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.minimap.enabled": false,
   "editor.autoIndent": true
 }
