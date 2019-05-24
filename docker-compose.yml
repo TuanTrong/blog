@@ -8,14 +8,23 @@ services:
     image: redis
     ports:
       - "6379:6379"
-  app:
+  backend:
     image: node
     volumes:
-      - ./be:/usr/src/app
-      - ./usr/src/app/node_modules
-    command: bash -c "cd /usr/src/app && npm install -g nodemon && npm install && npm start"
+      - ./be:/usr/src/backend
+      - ./usr/src/backend/node_modules
+    command: bash -c "cd /usr/src/backend && npm i -g nodemon && npm i && npm start"
     ports: 
       - "4000:4000"
     links:
       - database:database
+  frontend:
+    image: node
+    volumes:
+      - ./fe:/usr/src/frontend
+      - ./usr/src/frontend/node_modules
+    command: bash -c "cd /usr/src/frontend && npm i && npm start"
+    ports:
+      - "3000:3000"
+
   
