@@ -2,14 +2,17 @@ version: "3.7"
 services:
   database:
     image: mongo
+    restart: always
     ports: 
       - "27017:27017"
   cache:
     image: redis
+    restart: always
     ports:
       - "6379:6379"
   backend:
     image: node
+    restart: always
     volumes:
       - ./be:/usr/src/backend
       - ./usr/src/backend/node_modules
@@ -20,6 +23,7 @@ services:
       - database:database
   frontend:
     image: node
+    restart: always
     volumes:
       - ./fe:/usr/src/frontend
       - ./usr/src/frontend/node_modules
