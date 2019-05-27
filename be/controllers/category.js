@@ -14,8 +14,8 @@ function getAllCategory(req, res, next) {
         if (err) {
           return next(err);
         }
-
-        redis.set(REDIS_CATEGORIES_KEY, JSON.stringify(categories));
+        if (categories.length)
+          redis.set(REDIS_CATEGORIES_KEY, JSON.stringify(categories));
 
         res.send(categories);
       });

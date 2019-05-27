@@ -12,7 +12,8 @@ function getAllArticle(req, res, next) {
       Article.find()
         .sort({ createDate: -1 })
         .then(articles => {
-          redis.set(REDIS_ARTICLES_KEY, JSON.stringify(articles));
+          if (articles.length)
+            redis.set(REDIS_ARTICLES_KEY, JSON.stringify(articles));
 
           res.send(articles);
         })
