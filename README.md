@@ -1,2 +1,5 @@
 # blog
-A side project to learn NodeJS, ExpressJS and ReactJS
+A side project to learn 
+* NodeJS, ExpressJS and ReactJS
+* Docker
+* Redis
