@@ -4,9 +4,10 @@ const logger = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const passport = require("passport");
+const redis = require("redis");
+const mongoose = require("mongoose");
 
-const mongoose = require("./config/mongoose");
-const redis = require("./config/redis");
+const seedDb = require("./controllers/seedDb");
 const articleRouter = require("./routes/article");
 const categoryRouter = require("./routes/category");
 const userRouter = require("./routes/user");
@@ -31,8 +32,27 @@ app.use("/categories", categoryRouter);
 app.use("/users", userRouter);
 app.use("/tokens", tokenRouter);
 
-mongoose.initialize(app);
-redis;
+mongoose
+  .connect(process.env.MONGO_DOCKER_COMPOSE_URI, { useNewUrlParser: true })
+  .then(_ => {
+    seedDb(app);
+    console.log("Mongoose client connected.");
+  })
+  .catch(err => {
+    console.error(`Connection error: ${err}`);
+  });
+
+const redisClient = redis
+  .createClient(process.env.REDIS_DOCKER_COMPOSE_URL)
+  .on("connect", () => {
+    console.log("Redis client connected.");
+  })
+  .on("error", err => {
+    console.error(err);
+  });
+
+require("./controllers/article").setClient(redisClient);
+require("./controllers/category").setClient(redisClient);
 
 app.use((err, req, res, next) => {
   console.error(`ERROR: ${err}`);

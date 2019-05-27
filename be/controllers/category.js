@@ -1,9 +1,9 @@
-const redis = require("../config/redis");
 const Category = require("../models/category");
 const Article = require("../models/article");
 const ObjectId = require("mongodb").ObjectID;
 
 const REDIS_CATEGORIES_KEY = "getAllCategory";
+var redis = undefined;
 
 function getAllCategory(req, res, next) {
   redis.get(REDIS_CATEGORIES_KEY, (err, categories) => {
@@ -92,6 +92,9 @@ function deleteCategoryById(req, res, next) {
 }
 
 module.exports = {
+  setClient: redisClient => {
+    redis = redisClient;
+  },
   getAllCategory,
   getAllArticleByCategory,
   findCategoryById,

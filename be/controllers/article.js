@@ -1,8 +1,8 @@
-const redis = require("../config/redis");
 const Article = require("../models/article");
 const ObjectId = require("mongodb").ObjectID;
 
 const REDIS_ARTICLES_KEY = "getAllArticle";
+var redis = undefined;
 
 function getAllArticle(req, res, next) {
   redis.get(REDIS_ARTICLES_KEY, (err, articles) => {
@@ -90,6 +90,9 @@ function deleteArticleById(req, res) {
 }
 
 module.exports = {
+  setClient: redisClient => {
+    redis = redisClient;
+  },
   getAllArticle,
   findArticleById,
   insertArticle,
