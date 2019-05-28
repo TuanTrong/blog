@@ -3,7 +3,7 @@ services:
   database:
     image: mongo
     restart: always
-    ports: 
+    ports:
       - "27017:27017"
   redis_database:
     image: redis:alpine
@@ -17,11 +17,14 @@ services:
       - ./be:/usr/src/backend
       - ./usr/src/backend/node_modules
     command: bash -c "cd /usr/src/backend && npm i -g nodemon && npm i && npm start"
-    ports: 
+    ports:
       - "4000:4000"
     links:
       - database:database
       - redis_database:redis_database
+    depends_on:
+      - database
+      - redis_database
   frontend:
     image: node
     restart: always
@@ -31,5 +34,5 @@ services:
     command: bash -c "cd /usr/src/frontend && npm i && npm start"
     ports:
       - "3000:3000"
-
-  
+    depends_on:
+      - backend
