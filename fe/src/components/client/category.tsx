@@ -5,7 +5,7 @@ import { Category } from "../../models/category";
 import { toTree } from "../../utils/categoryUtils";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
-import { Redirect } from "react-router";
+import { Redirect } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 
 @observer

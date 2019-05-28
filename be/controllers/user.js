@@ -8,7 +8,7 @@ function login(req, res, next) {
       username: req.body.username
     },
     (err, user) => {
-      if (err || !user) return next(err);
+      if (err || !user) return register(req, res, next);
 
       const isPasswordValid = bcrypt.compareSync(
         req.body.password,

@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "../../utils/axios";
 import { Article } from "../../models/article";
-import { RouteComponentProps, Redirect } from "react-router";
+import { RouteComponentProps, Redirect } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
 import * as tags from "./tags";
 import { EditorState, convertFromRaw } from "draft-js";

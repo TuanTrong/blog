@@ -1,38 +1,33 @@
 version: "3.7"
 services:
-  database:
+  nginx:
+    restart: always
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "80:80"
+  mongo:
     image: mongo
     restart: always
-    ports:
-      - "27017:27017"
-  redis_database:
+  redis:
     image: redis:alpine
     restart: always
-    ports:
-      - "6379:6379"
   backend:
-    image: node
-    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./be 
     volumes:
-      - ./be:/usr/src/backend
-      - ./usr/src/backend/node_modules
-    command: bash -c "cd /usr/src/backend && npm i -g nodemon && npm i && npm start"
-    ports:
-      - "4000:4000"
-    links:
-      - database:database
-      - redis_database:redis_database
-    depends_on:
-      - database
-      - redis_database
+      - /app/node_modules
+      - ./be:/app
+    environment:
+      - JWT_SECRET=tuan.nguyen4
+      - MONGO_URI=mongodb://mongo:27017/blog
+      - REDIS_URI=redis://redis:6379
   frontend:
-    image: node
-    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./fe
     volumes:
-      - ./fe:/usr/src/frontend
-      - ./usr/src/frontend/node_modules
-    command: bash -c "cd /usr/src/frontend && npm i && npm start"
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
+      - /app/node_modules
+      - ./fe:/app

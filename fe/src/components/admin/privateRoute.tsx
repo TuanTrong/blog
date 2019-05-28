@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect } from "react-router";
+import { Route, Redirect } from "react-router-dom";
 import { observer } from "mobx-react";
 import userStore from "../../store/user";
 

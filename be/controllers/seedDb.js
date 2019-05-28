@@ -2,7 +2,7 @@ const Category = require("../models/category");
 const Article = require("../models/article");
 
 module.exports = app => {
-  app.get("/api/seedDb", (req, res) => {
+  app.get("/seedDb", (req, res) => {
     const categories = [
       {
         _id: "5cd67e886a2d062fe06d0144",

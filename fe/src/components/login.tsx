@@ -3,7 +3,7 @@ import axios from "../utils/axios";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import { observer } from "mobx-react";
 import { observable } from "mobx";
-import { Redirect } from "react-router";
+import { Redirect } from "react-router-dom";
 import userStore from "../store/user";
 import { scrollToTop } from "../utils/scrollTop";
 

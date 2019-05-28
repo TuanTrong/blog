@@ -1,6 +1,6 @@
 import React from "react";
 import { CategoryComponent } from "./category";
-import { Switch, Route } from "react-router";
+import { Switch, Route } from "react-router-dom";
 import { ArticleList } from "./articleList";
 import { ArticleDetailComponent } from "./articleDetail";
 import { ArticleListByCategory } from "./articleListByCategory";

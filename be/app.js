@@ -33,7 +33,7 @@ app.use("/users", userRouter);
 app.use("/tokens", tokenRouter);
 
 mongoose
-  .connect(process.env.MONGO_DOCKER_COMPOSE_URI, { useNewUrlParser: true })
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true })
   .then(_ => {
     seedDb(app);
     console.log("Mongoose client connected.");
@@ -43,7 +43,7 @@ mongoose
   });
 
 const redisClient = redis
-  .createClient(process.env.REDIS_DOCKER_COMPOSE_URL)
+  .createClient(process.env.REDIS_URI)
   .on("connect", () => {
     console.log("Redis client connected.");
   })
